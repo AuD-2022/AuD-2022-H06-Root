@@ -9,6 +9,13 @@ public class MyIndexHoppingHashMap<K extends Object, V> implements MyMap<K, V> {
     private int occupiedCount = 0;
     private final BinaryFct2Int<K> hashFunction;
 
+    /**
+     * Create a new index hopping hash map.
+     * @param initialSize The initial size of the hashmap.
+     * @param resizeFactor The resize factor which determines the new size after the resize threshold is reached.
+     * @param resizeThreshold The threshold after which the hash table is resized.
+     * @param hashFunction The used hash function.
+     */
     @SuppressWarnings("unchecked")
     public MyIndexHoppingHashMap(int initialSize, double resizeFactor, double resizeThreshold, BinaryFct2Int<K> hashFunction) {
         theKeys = (K[]) new Object[initialSize];

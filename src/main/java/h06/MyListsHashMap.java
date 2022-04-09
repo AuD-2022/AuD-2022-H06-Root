@@ -7,6 +7,10 @@ public class MyListsHashMap<K extends Object, V> implements MyMap<K, V> {
     private final LinkedList<KeyValuePair<K, V>>[] table;
     private final Fct2Int<K> hashFunction;
 
+    /**
+     * Creates a new list hash map.
+     * @param hashFunction The used hash function.
+     */
     @SuppressWarnings("unchecked")
     public MyListsHashMap(Fct2Int<K> hashFunction) {
         this.hashFunction = hashFunction;

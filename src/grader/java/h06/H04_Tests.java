@@ -2,19 +2,14 @@ package h06;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.FileNotFoundException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 
-import h06.*;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 @TestForSubmission("H06")
@@ -48,7 +43,7 @@ public class H04_Tests
   public void H04_MyListsHashMapBasic()
   {
     // Constructor
-    HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(10, 0);
+    Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(10, 0);
     new MyListsHashMap<Object, Object>(hashFunction);
 
     // Type parameter
@@ -72,7 +67,7 @@ public class H04_Tests
   @Test
   public void H04_MyListsHashMapMapPutSingle()
   {
-    HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(13, 0);
+    Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(13, 0);
     MyListsHashMap<Object, Object> hashMap = new MyListsHashMap<Object, Object>(hashFunction);
 
     try
@@ -105,7 +100,7 @@ public class H04_Tests
   @Test
   public void H04_MyListsHashMapPutReplace()
   {
-    HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(13, 0);
+    Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(13, 0);
     MyListsHashMap<Object, Object> hashMap = new MyListsHashMap<Object, Object>(hashFunction);
 
     try
@@ -145,7 +140,7 @@ public class H04_Tests
   @Test
   public void H04_MyListsHashMapPutMultiple()
   {
-    HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(13, 0);
+    Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(13, 0);
     MyListsHashMap<Object, Object> hashMap = new MyListsHashMap<Object, Object>(hashFunction);
 
     try
@@ -196,7 +191,7 @@ public class H04_Tests
   @Test
   public void H04_MyListsHashMapRemoveEmpty()
   {
-    HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(13, 0);
+    Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(13, 0);
     MyListsHashMap<Object, Object> hashMap = new MyListsHashMap<Object, Object>(hashFunction);
 
     try
@@ -224,7 +219,7 @@ public class H04_Tests
   @Test
   public void H04_MyListsHashMapRemoveSingle()
   {
-    HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(13, 0);
+    Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(13, 0);
     MyListsHashMap<Object, Object> hashMap = new MyListsHashMap<Object, Object>(hashFunction);
 
     try
@@ -264,7 +259,7 @@ public class H04_Tests
 @Test
   public void H04_MyListsHashMapRemoveMultiple()
   {
-    HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(13, 0);
+    Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(13, 0);
     MyListsHashMap<Object, Object> hashMap = new MyListsHashMap<Object, Object>(hashFunction);
 
     try
@@ -323,7 +318,7 @@ public class H04_Tests
   @Test
   public void H04_MyListsHashMapContainsKeyTrue()
   {
-    HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(13, 0);
+    Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(13, 0);
     MyListsHashMap<Object, Object> hashMap = new MyListsHashMap<Object, Object>(hashFunction);
 
     try
@@ -355,7 +350,7 @@ public class H04_Tests
   @Test
   public void H04_MyListsHashMapContainsKeyFalse()
   {
-    HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(13, 0);
+    Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(13, 0);
     MyListsHashMap<Object, Object> hashMap = new MyListsHashMap<Object, Object>(hashFunction);
 
     try
@@ -393,7 +388,7 @@ public class H04_Tests
   @Test
   public void H04_MyIndexHoppingHashMapGetValuePositive()
   {
-    HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(13, 0);
+    Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(13, 0);
     MyListsHashMap<Object, Object> hashMap = new MyListsHashMap<Object, Object>(hashFunction);
 
     try
@@ -426,7 +421,7 @@ public class H04_Tests
   @Test
   public void H04_MyIndexHoppingHashMapGetValueNegative()
   {
-    HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(13, 0);
+    Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(13, 0);
     MyListsHashMap<Object, Object> hashMap = new MyListsHashMap<Object, Object>(hashFunction);
 
     try

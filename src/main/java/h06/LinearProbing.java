@@ -1,6 +1,6 @@
 package h06;
 
-public class LinearProbingTableIndexFct<T extends Object> implements BinaryFct2Int<T>
+public class LinearProbing<T extends Object> implements BinaryFct2Int<T>
 {
 	/**
 	 * Hash function used in object internal operations. Set in the constructor.
@@ -13,7 +13,7 @@ public class LinearProbingTableIndexFct<T extends Object> implements BinaryFct2I
 	 * Therefore the hash function is stored in the object attribute of the same name for further use.
 	 * @param hashFct The hash function to be used in upcoming tasks.
 	 */
-	public LinearProbingTableIndexFct(Fct2Int<T> hashFct)
+	public LinearProbing(Fct2Int<T> hashFct)
 	{
 		this.hashFct = hashFct;
 	}

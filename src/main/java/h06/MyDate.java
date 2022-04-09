@@ -19,6 +19,11 @@ public class MyDate
 
 	private final boolean randomBoolean;
 
+    /**
+     * Creates a new date consisting of a calendar and a boolean value deciding how to calculate the hash value.
+     * @param date The date.
+     * @param randomBoolean The boolean value used to determine the calculation of the hash value.
+     */
 	public MyDate(Calendar date, boolean randomBoolean)
 	{
 		year = date.get(Calendar.YEAR);

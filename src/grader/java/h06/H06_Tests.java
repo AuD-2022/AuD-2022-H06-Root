@@ -87,13 +87,13 @@ public class H06_Tests {
         int initialTableSize = (l == 1) ? ((j == 1) ? 4096 : TEST_SET_SIZE * 3)
             : ((j == 1) ? 64 : TEST_SET_SIZE / 10);
 
-        HashCodeTableIndexFct<MyDate> basicHashFunction = new HashCodeTableIndexFct<MyDate>(initialTableSize, 0);
+        Hash2IndexFct<MyDate> basicHashFunction = new Hash2IndexFct<MyDate>(initialTableSize, 0);
 
         MyMap<MyDate, MyDate> hashMap;
 
         if (j == 1) {
-            BinaryFct2Int<MyDate> hashFunction = (k == 1) ? new LinearProbingTableIndexFct<MyDate>(basicHashFunction) :
-                new DoubleHashingTableIndexFct<MyDate>(basicHashFunction, new HashCodeTableIndexFct<MyDate>(initialTableSize, 42));
+            BinaryFct2Int<MyDate> hashFunction = (k == 1) ? new LinearProbing<MyDate>(basicHashFunction) :
+                new DoubleHashing<MyDate>(basicHashFunction, new Hash2IndexFct<MyDate>(initialTableSize, 42));
             hashMap = new MyIndexHoppingHashMap<MyDate, MyDate>(initialTableSize, 2.0, 0.75, hashFunction);
         }
         else {

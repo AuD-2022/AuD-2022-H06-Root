@@ -16,7 +16,7 @@ public class H01_Testsa {
         // Constructor
         //Class klass = Util_Tests.checkType("HashCodeTableIndexFct", "h06.hashFunctions", false, -1, 1);
         //Object Util_Test.invokeConstructor(new Class<?>[] {int.class, int.class}, 10, 2);
-        new HashCodeTableIndexFct<Object>(10, 2);
+        new Hash2IndexFct<Object>(10, 2);
 
         // Type parameter
         try {
@@ -26,14 +26,14 @@ public class H01_Testsa {
         }
 
         // Interface
-        Class<?>[] interfaces = HashCodeTableIndexFct.class.getInterfaces();
+        Class<?>[] interfaces = Hash2IndexFct.class.getInterfaces();
         assertEquals(1, interfaces.length);
         assertEquals(Fct2Int.class.getName(), interfaces[0].getName());
     }
 
     @Test
     public void H01_HashCodeTableIndexFctTableSize() {
-        HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(10, 0);
+        Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(10, 0);
         assertEquals(10, hashFunction.getTableSize());
         hashFunction.setTableSize(20);
         assertEquals(20, hashFunction.getTableSize());
@@ -41,13 +41,13 @@ public class H01_Testsa {
 
     @Test
     public void H01_HashCodeTableIndexFctApplyBasic() {
-        HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(10, 0);
+        Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(10, 0);
         assertEquals(8, hashFunction.apply("test"));
     }
 
     @Test
     public void H01_HashCodeTableIndexFctApplyAdvanced() {
-        HashCodeTableIndexFct<Object> hashFunction = new HashCodeTableIndexFct<Object>(10, 15);
+        Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(10, 15);
         assertEquals(1, hashFunction.apply("t"));
         hashFunction.setTableSize(100);
         assertEquals(38, hashFunction.apply("testen"));

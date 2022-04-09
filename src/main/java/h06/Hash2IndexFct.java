@@ -1,6 +1,6 @@
 package h06;
 
-public class HashCodeTableIndexFct<T extends Object> implements Fct2Int<T>
+public class Hash2IndexFct<T extends Object> implements Fct2Int<T>
 {
 	/**
 	 * Table size used in calculation.
@@ -17,7 +17,7 @@ public class HashCodeTableIndexFct<T extends Object> implements Fct2Int<T>
 	 * @param initTableSize Initial table size used in calculation.
 	 * @param offset Offset used in calculation.
 	 */
-	public HashCodeTableIndexFct(int initTableSize, int offset) {
+	public Hash2IndexFct(int initTableSize, int offset) {
 		this.offset = offset;
 		tableSize = initTableSize;
 	}

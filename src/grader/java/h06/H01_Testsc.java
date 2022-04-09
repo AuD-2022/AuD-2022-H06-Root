@@ -1,6 +1,5 @@
 package h06;
 
-import h06.*;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
@@ -15,9 +14,9 @@ public class H01_Testsc {
     @Test
     public void H01_DoubleHashingTableIndexFctBasic() {
         // Constructor
-        HashCodeTableIndexFct<Object> internalHashFunction0 = new HashCodeTableIndexFct<Object>(41, 0);
-        HashCodeTableIndexFct<Object> internalHashFunction1 = new HashCodeTableIndexFct<Object>(41, 29);
-        new DoubleHashingTableIndexFct<Object>(internalHashFunction0, internalHashFunction1);
+        Hash2IndexFct<Object> internalHashFunction0 = new Hash2IndexFct<Object>(41, 0);
+        Hash2IndexFct<Object> internalHashFunction1 = new Hash2IndexFct<Object>(41, 29);
+        new DoubleHashing<Object>(internalHashFunction0, internalHashFunction1);
 
         // Type parameter
         try {
@@ -27,16 +26,16 @@ public class H01_Testsc {
         }
 
         // Interface
-        Class<?>[] interfaces = DoubleHashingTableIndexFct.class.getInterfaces();
+        Class<?>[] interfaces = DoubleHashing.class.getInterfaces();
         assertEquals(1, interfaces.length);
         assertEquals(BinaryFct2Int.class.getName(), interfaces[0].getName());
     }
 
     @Test
     public void H01_DoubleHashingTableIndexFctTableSize() {
-        HashCodeTableIndexFct<Object> internalHashFunction0 = new HashCodeTableIndexFct<Object>(41, 0);
-        HashCodeTableIndexFct<Object> internalHashFunction1 = new HashCodeTableIndexFct<Object>(41, 29);
-        DoubleHashingTableIndexFct<Object> hashFunction = new DoubleHashingTableIndexFct<Object>(internalHashFunction0, internalHashFunction1);
+        Hash2IndexFct<Object> internalHashFunction0 = new Hash2IndexFct<Object>(41, 0);
+        Hash2IndexFct<Object> internalHashFunction1 = new Hash2IndexFct<Object>(41, 29);
+        DoubleHashing<Object> hashFunction = new DoubleHashing<Object>(internalHashFunction0, internalHashFunction1);
 
         assertEquals(41, hashFunction.getTableSize());
         hashFunction.setTableSize(20);
@@ -45,18 +44,18 @@ public class H01_Testsc {
 
     @Test
     public void H01_DoubleHashingTableIndexFctApplyBasic() {
-        HashCodeTableIndexFct<Object> internalHashFunction0 = new HashCodeTableIndexFct<Object>(41, 0);
-        HashCodeTableIndexFct<Object> internalHashFunction1 = new HashCodeTableIndexFct<Object>(41, 29);
-        DoubleHashingTableIndexFct<Object> hashFunction = new DoubleHashingTableIndexFct<Object>(internalHashFunction0, internalHashFunction1);
+        Hash2IndexFct<Object> internalHashFunction0 = new Hash2IndexFct<Object>(41, 0);
+        Hash2IndexFct<Object> internalHashFunction1 = new Hash2IndexFct<Object>(41, 29);
+        DoubleHashing<Object> hashFunction = new DoubleHashing<Object>(internalHashFunction0, internalHashFunction1);
 
         assertEquals(35, hashFunction.apply("test", 0));
     }
 
     @Test
     public void H01_DoubleHashingTableIndexFctApplyAdvanced() {
-        HashCodeTableIndexFct<Object> internalHashFunction0 = new HashCodeTableIndexFct<Object>(41, 0);
-        HashCodeTableIndexFct<Object> internalHashFunction1 = new HashCodeTableIndexFct<Object>(41, 29);
-        DoubleHashingTableIndexFct<Object> hashFunction = new DoubleHashingTableIndexFct<Object>(internalHashFunction0, internalHashFunction1);
+        Hash2IndexFct<Object> internalHashFunction0 = new Hash2IndexFct<Object>(41, 0);
+        Hash2IndexFct<Object> internalHashFunction1 = new Hash2IndexFct<Object>(41, 29);
+        DoubleHashing<Object> hashFunction = new DoubleHashing<Object>(internalHashFunction0, internalHashFunction1);
 
         assertEquals(15, hashFunction.apply("t", 1));
         hashFunction.setTableSize(674);

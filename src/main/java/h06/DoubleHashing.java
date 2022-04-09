@@ -1,16 +1,16 @@
 package h06;
 
-public class DoubleHashingTableIndexFct<T extends Object> implements BinaryFct2Int<T>
+public class DoubleHashing<T extends Object> implements BinaryFct2Int<T>
 {
 	/**
 	 * Hash function 1 used in object internal operations. Set in the constructor.
 	 */
-	private final HashCodeTableIndexFct<T> fct1;
+	private final Hash2IndexFct<T> fct1;
 
 	/**
 	 * Hash function 2 used in object internal operations. Set in the constructor.
 	 */
-	private final HashCodeTableIndexFct<T> fct2;
+	private final Hash2IndexFct<T> fct2;
 
 	/**
 	 * Creates an object of the DoubleHashingTableIndexFct class.
@@ -19,7 +19,7 @@ public class DoubleHashingTableIndexFct<T extends Object> implements BinaryFct2I
 	 * @param fct1 The first hash function to be used in upcoming tasks.
 	 * @param fct2 The second hash function to be used in upcoming tasks.
 	 */
-	public DoubleHashingTableIndexFct(HashCodeTableIndexFct<T> fct1, HashCodeTableIndexFct<T> fct2)
+	public DoubleHashing(Hash2IndexFct<T> fct1, Hash2IndexFct<T> fct2)
 	{
 		this.fct1 = fct1;
 		this.fct2 = fct2;

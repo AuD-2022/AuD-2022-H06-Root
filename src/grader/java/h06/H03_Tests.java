@@ -7,7 +7,6 @@ import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
-import h06.*;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 @TestForSubmission("H06")
@@ -21,8 +20,8 @@ public class H03_Tests
 	public void H03_MyIndexHoppingHashMapBasic()
 	{
 		// Constructor
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(10, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(10, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		new MyIndexHoppingHashMap<Object, Object>(10, 2, 0.75, hashFunction);
 
 		// Type parameter
@@ -46,8 +45,8 @@ public class H03_Tests
 	@Test
 	public void H03_MyIndexHoppingHashMapPutSingle()
 	{
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(15, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(15, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		MyIndexHoppingHashMap<Object, Object> hashMap = new MyIndexHoppingHashMap<Object, Object>(15, 1.5, 0.5, hashFunction);
 
 		try
@@ -84,8 +83,8 @@ public class H03_Tests
 	@Test
 	public void H03_MyIndexHoppingHashMapPutReplace()
 	{
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(15, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(15, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		MyIndexHoppingHashMap<Object, Object> hashMap = new MyIndexHoppingHashMap<Object, Object>(15, 1.5, 0.5, hashFunction);
 
 		try
@@ -138,8 +137,8 @@ public class H03_Tests
 	@Test
 	public void H03_MyIndexHoppingHashMapPutMultiple()
 	{
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(15, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(15, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		MyIndexHoppingHashMap<Object, Object> hashMap = new MyIndexHoppingHashMap<Object, Object>(15, 1.5, 0.5, hashFunction);
 
 		try
@@ -208,8 +207,8 @@ public class H03_Tests
 	@Test
 	public void H03_MyIndexHoppingHashMapPutMultipleResize()
 	{
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(4, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(4, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		MyIndexHoppingHashMap<Object, Object> hashMap = new MyIndexHoppingHashMap<Object, Object>(4, 2, 0.5, hashFunction);
 
 		try
@@ -282,8 +281,8 @@ public class H03_Tests
 	@Test
 	public void H03_MyIndexHoppingHashMapRemoveEmpty()
 	{
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(10, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(10, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		MyIndexHoppingHashMap<Object, Object> hashMap = new MyIndexHoppingHashMap<Object, Object>(10, 1.5, 0.5, hashFunction);
 
 		try
@@ -321,8 +320,8 @@ public class H03_Tests
 	@Test
 	public void H03_MyIndexHoppingHashMapRemoveSingle()
 	{
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(15, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(15, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		MyIndexHoppingHashMap<Object, Object> hashMap = new MyIndexHoppingHashMap<Object, Object>(15, 1.5, 0.5, hashFunction);
 
 		try
@@ -363,8 +362,8 @@ public class H03_Tests
 	@Test
 	public void H03_MyIndexHoppingHashMapRemoveMultiple()
 	{
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(15, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(15, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		MyIndexHoppingHashMap<Object, Object> hashMap = new MyIndexHoppingHashMap<Object, Object>(15, 1.5, 0.5, hashFunction);
 
 		try
@@ -443,8 +442,8 @@ public class H03_Tests
 	@Test
 	public void H03_MyIndexHoppingHashMapContainsKeyTrue()
 	{
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(15, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(15, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		MyIndexHoppingHashMap<Object, Object> hashMap = new MyIndexHoppingHashMap<Object, Object>(15, 1.5, 0.5, hashFunction);
 
 		try
@@ -472,8 +471,8 @@ public class H03_Tests
 	@Test
 	public void H03_MyIndexHoppingHashMapContainsKeyFalse()
 	{
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(15, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(15, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		MyIndexHoppingHashMap<Object, Object> hashMap = new MyIndexHoppingHashMap<Object, Object>(15, 1.5, 0.5, hashFunction);
 
 		try
@@ -506,8 +505,8 @@ public class H03_Tests
 	@Test
 	public void H03_MyIndexHoppingHashMapGetValuePositive()
 	{
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(15, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(15, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		MyIndexHoppingHashMap<Object, Object> hashMap = new MyIndexHoppingHashMap<Object, Object>(15, 1.5, 0.5, hashFunction);
 
 		try
@@ -535,8 +534,8 @@ public class H03_Tests
 	@Test
 	public void H03_MyIndexHoppingHashMapGetValueNegative()
 	{
-		HashCodeTableIndexFct<Object> internalHashFunction = new HashCodeTableIndexFct<Object>(15, 0);
-		LinearProbingTableIndexFct<Object> hashFunction = new LinearProbingTableIndexFct<Object>(internalHashFunction);
+		Hash2IndexFct<Object> internalHashFunction = new Hash2IndexFct<Object>(15, 0);
+		LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
 		MyIndexHoppingHashMap<Object, Object> hashMap = new MyIndexHoppingHashMap<Object, Object>(15, 1.5, 0.5, hashFunction);
 
 		try
