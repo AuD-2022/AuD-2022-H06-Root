@@ -1,6 +1,6 @@
 package h06;
 
-public class DoubleHashing<T extends Object> implements BinaryFct2Int<T>
+public class DoubleHashing<T> implements BinaryFct2Int<T>
 {
 	/**
 	 * Hash function 1 used in object internal operations. Set in the constructor.
@@ -25,35 +25,35 @@ public class DoubleHashing<T extends Object> implements BinaryFct2Int<T>
 		this.fct2 = fct2;
 	}
 
+    /**
+     * Returns the current table size.
+     * @return Current table size.
+     */
 	@Override
-	/**
-	 * Returns the current table size.
-	 * @return Current table size.
-	 */
 	public int getTableSize()
 	{
 		return fct1.getTableSize();
 	}
 
+    /**
+     * Sets the current table size for both internal hash functions.
+     * @param tableSize New table size.
+     */
 	@Override
-	/**
-	 * Sets the current table size for both internal hash functions.
-	 * @param tableSize New table size.
-	 */
 	public void setTableSize(int tableSize)
 	{
 		fct1.setTableSize(tableSize);
 		fct2.setTableSize(tableSize);
 	}
 
+    /**
+     * Calculates the hash value of parameter "key" using "internalHashFunction0"
+     * and "internalHashFunction1" as well as parameter "factor".
+     * @param key The key from which to calculate the hash value.
+     * @param factor The factor that is multiplied by the second hash function result.
+     * @return ModuloUtil.addModulo(hash0(key), offset * hash1(key), max(tableSize, offset * hash1(key)) % tableSize
+     */
 	@Override
-	/**
-	 * Calculates the hash value of parameter "key" using "internalHashFunction0"
-	 * and "internalHashFunction1" as well as parameter "factor".
-	 * @param key The key from which to calculate the hash value.
-	 * @param factor The factor that is multiplied by the second hash function result.
-	 * @return ModuloUtil.addModulo(hash0(key), offset * hash1(key), max(tableSize, offset * hash1(key)) % tableSize
-	 */
 	public int apply(T key, int factor)
 	{
 		int a = fct1.apply(key);

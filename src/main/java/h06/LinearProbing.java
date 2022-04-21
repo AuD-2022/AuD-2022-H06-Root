@@ -18,34 +18,34 @@ public class LinearProbing<T extends Object> implements BinaryFct2Int<T>
 		this.hashFct = hashFct;
 	}
 
+    /**
+     * Returns the current table size.
+     * @return Current table size.
+     */
 	@Override
-	/**
-	 * Returns the current table size.
-	 * @return Current table size.
-	 */
 	public int getTableSize()
 	{
 		return hashFct.getTableSize();
 	}
 
+    /**
+     * Sets the current table size.
+     * @param tableSize New table size.
+     */
 	@Override
-	/**
-	 * Sets the current table size.
-	 * @param tableSize New table size.
-	 */
 	public void setTableSize(int tableSize)
 	{
 		hashFct.setTableSize(tableSize);
 	}
 
+    /**
+     * Calculates the hash value of parameter "key" by using the hash function passed
+     * when the object was created and adds the offset specified in the parameter "offset".
+     * @param key The key from which to calculate the hash value.
+     * @param offset The offset to add.
+     * @return ModuloUtil.addModulo(hash(key), offset, max(tableSize, offset)) % tableSize
+     */
 	@Override
-	/**
-	 * Calculates the hash value of parameter "key" by using the hash function passed
-	 * when the object was created and adds the offset specified in the parameter "offset".
-	 * @param key The key from which to calculate the hash value.
-	 * @param offset The offset to add.
-	 * @return ModuloUtil.addModulo(hash(key), offset, max(tableSize, offset)) % tableSize
-	 */
 	public int apply(T key, int offset)
 	{
 		int tableSize = getTableSize();

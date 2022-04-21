@@ -4,9 +4,9 @@ public class ModuloUtil {
 
 	/**
 	 * Calculates (a + b) % n without generating intermediate result > n.
-	 * @param a
-	 * @param b
-	 * @param n
+	 * @param a a
+	 * @param b b
+	 * @param n n
 	 * @return (a + b) % n
 	 */
 	public static int addModulo(int a, int b, int n) {

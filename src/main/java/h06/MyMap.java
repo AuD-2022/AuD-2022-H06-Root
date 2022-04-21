@@ -1,6 +1,6 @@
 package h06;
 
-public interface MyMap <K extends Object, V>
+public interface MyMap <K, V>
 {
 	/**
 	 * Checks if key is contained in map.

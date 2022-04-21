@@ -1,6 +1,6 @@
 package h06;
 
-public class Hash2IndexFct<T extends Object> implements Fct2Int<T>
+public class Hash2IndexFct<T> implements Fct2Int<T>
 {
 	/**
 	 * Table size used in calculation.
@@ -22,32 +22,32 @@ public class Hash2IndexFct<T extends Object> implements Fct2Int<T>
 		tableSize = initTableSize;
 	}
 
+    /**
+     * Calculates the hash value of parameter "key".
+     * @param key The key from which to calculate the hash value.
+     * @return key.hashCode() modulo tableSize
+     */
 	@Override
-	/**
-	 * Calculates the hash value of parameter "key".
-	 * @param key The key from which to calculate the hash value.
-	 * @return key.hashCode() modulo tableSize
-	 */
 	public int apply(T key)
 	{
 	  return Math.floorMod(key.hashCode() + offset, tableSize);
 	}
 
+    /**
+     * Returns the current table size.
+     * @return Current table size.
+     */
 	@Override
-	/**
-	 * Returns the current table size.
-	 * @return Current table size.
-	 */
 	public int getTableSize()
 	{
 		return tableSize;
 	}
 
+    /**
+     * Sets the current table size.
+     * @param tableSize New table size.
+     */
 	@Override
-	/**
-	 * Sets the current table size.
-	 * @param tableSize New table size.
-	 */
 	public void setTableSize(int tableSize)
 	{
 		this.tableSize = tableSize;
