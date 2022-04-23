@@ -26,8 +26,7 @@ public class MyDate
      * @param date The date.
      * @param randomBoolean The boolean value used to determine the calculation of the hash value.
      */
-	public MyDate(Calendar date, boolean randomBoolean)
-	{
+	public MyDate(Calendar date, boolean randomBoolean) {
 		year = date.get(Calendar.YEAR);
 		month = date.get(Calendar.MONTH);
 		day = date.get(Calendar.DAY_OF_MONTH);
@@ -107,6 +106,6 @@ public class MyDate
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MyDate myDate = (MyDate) o;
-        return year == myDate.year && month == myDate.month && day == myDate.day && hour == myDate.hour && minute == myDate.minute && randomBoolean == myDate.randomBoolean;
+        return o.hashCode() == this.hashCode();
     }
 }
