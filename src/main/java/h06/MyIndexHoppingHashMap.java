@@ -1,6 +1,8 @@
 package h06;
 
-public class MyIndexHoppingHashMap<K extends Object, V> implements MyMap<K, V> {
+import org.jetbrains.annotations.Nullable;
+
+public class MyIndexHoppingHashMap<K, V> implements MyMap<K, V> {
     private final double resizeThreshold;
     private final double resizeFactor;
     private K[] theKeys;
@@ -45,7 +47,7 @@ public class MyIndexHoppingHashMap<K extends Object, V> implements MyMap<K, V> {
     }
 
     @Override
-    public V getValue(K key) {
+    public @Nullable V getValue(K key) {
         for (int i = 0; i < hashFunction.getTableSize(); i++) {
             int hashValue = hashFunction.apply(key, i);
             // Position would have been occupied if element was existing
@@ -60,7 +62,7 @@ public class MyIndexHoppingHashMap<K extends Object, V> implements MyMap<K, V> {
     }
 
     @Override
-    public V put(K key, V value) {
+    public @Nullable V put(K key, V value) {
         for (int i = 0; i < hashFunction.getTableSize(); i++) {
             int hashValue = hashFunction.apply(key, i);
 
@@ -98,7 +100,7 @@ public class MyIndexHoppingHashMap<K extends Object, V> implements MyMap<K, V> {
     }
 
     @Override
-    public V remove(K key) {
+    public @Nullable V remove(K key) {
         for (int i = 0; i < hashFunction.getTableSize(); i++) {
             int hashValue = hashFunction.apply(key, i);
             // Position would have been occupied if element was existing

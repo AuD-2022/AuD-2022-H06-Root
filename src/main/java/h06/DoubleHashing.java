@@ -19,8 +19,7 @@ public class DoubleHashing<T> implements BinaryFct2Int<T>
 	 * @param fct1 The first hash function to be used in upcoming tasks.
 	 * @param fct2 The second hash function to be used in upcoming tasks.
 	 */
-	public DoubleHashing(Hash2IndexFct<T> fct1, Hash2IndexFct<T> fct2)
-	{
+	public DoubleHashing(Hash2IndexFct<T> fct1, Hash2IndexFct<T> fct2) {
 		this.fct1 = fct1;
 		this.fct2 = fct2;
 	}
@@ -40,8 +39,7 @@ public class DoubleHashing<T> implements BinaryFct2Int<T>
      * @param tableSize New table size.
      */
 	@Override
-	public void setTableSize(int tableSize)
-	{
+	public void setTableSize(int tableSize) {
 		fct1.setTableSize(tableSize);
 		fct2.setTableSize(tableSize);
 	}
@@ -54,15 +52,13 @@ public class DoubleHashing<T> implements BinaryFct2Int<T>
      * @return ModuloUtil.addModulo(hash0(key), offset * hash1(key), max(tableSize, offset * hash1(key)) % tableSize
      */
 	@Override
-	public int apply(T key, int factor)
-	{
+	public int apply(T key, int factor) {
 		int a = fct1.apply(key);
 		long b = fct2.apply(key);
 		int tableSize = getTableSize();
 		long i = factor;
 
-        if (Math.floorMod(b, 2) == 0)
-        {
+        if (Math.floorMod(b, 2) == 0) {
             b++;
         }
 

@@ -1,9 +1,11 @@
 package h06;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.lang.reflect.Array;
 import java.util.LinkedList;
 
-public class MyListsHashMap<K extends Object, V> implements MyMap<K, V> {
+public class MyListsHashMap<K, V> implements MyMap<K, V> {
     private final LinkedList<KeyValuePair<K, V>>[] table;
     private final Fct2Int<K> hashFunction;
 
@@ -32,7 +34,7 @@ public class MyListsHashMap<K extends Object, V> implements MyMap<K, V> {
     }
 
     @Override
-    public V getValue(K key) {
+    public @Nullable V getValue(K key) {
         LinkedList<KeyValuePair<K, V>> currentList = table[hashFunction.apply(key)];
 
         for (KeyValuePair<K, V> currentListElement : currentList) {
@@ -43,7 +45,7 @@ public class MyListsHashMap<K extends Object, V> implements MyMap<K, V> {
     }
 
     @Override
-    public V put(K key, V value) {
+    public @Nullable V put(K key, V value) {
         LinkedList<KeyValuePair<K, V>> currentList = table[hashFunction.apply(key)];
 
         for (KeyValuePair<K, V> currentListElement : currentList) {
@@ -59,7 +61,7 @@ public class MyListsHashMap<K extends Object, V> implements MyMap<K, V> {
     }
 
     @Override
-    public V remove(K key) {
+    public @Nullable V remove(K key) {
         LinkedList<KeyValuePair<K, V>> currentList = table[hashFunction.apply(key)];
 
         for (KeyValuePair<K, V> currentListElement : currentList) {

@@ -1,5 +1,7 @@
 package h06;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Calendar;
 
 public class MyDate
@@ -101,10 +103,10 @@ public class MyDate
 	}
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj.getClass().equals(MyDate.class)) {
-            return obj.hashCode() == this.hashCode();
-        }
-        return false;
+    public boolean equals(@Nullable Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyDate myDate = (MyDate) o;
+        return year == myDate.year && month == myDate.month && day == myDate.day && hour == myDate.hour && minute == myDate.minute && randomBoolean == myDate.randomBoolean;
     }
 }

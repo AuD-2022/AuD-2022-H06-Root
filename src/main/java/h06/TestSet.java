@@ -3,7 +3,6 @@ package h06;
 public class TestSet<W> {
 
     private final MyMap<W, W> hashTable;
-
     private final W[] testData;
 
     /**

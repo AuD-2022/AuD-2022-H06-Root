@@ -1,5 +1,7 @@
 package h06;
 
+import org.jetbrains.annotations.Nullable;
+
 public interface MyMap <K, V>
 {
 	/**
@@ -14,7 +16,7 @@ public interface MyMap <K, V>
 	 * @param key The key to identify the matching key-value pair.
 	 * @return The value corresponding to the parameter "key".
 	 */
-	V getValue(K key);
+    @Nullable V getValue(K key);
 
 	/**
 	 * Inserts the value for the corresponding key and returns the old value.
@@ -24,7 +26,7 @@ public interface MyMap <K, V>
 	 * which is to be inserted.
 	 * @return The old value if the key-value pair is already existing, null otherwise.
 	 */
-	V put(K key, V value);
+    @Nullable V put(K key, V value);
 
 	/**
 	 * Removes the key-value pair associated with the key.
@@ -32,5 +34,5 @@ public interface MyMap <K, V>
 	 * @param key The key used to identify the key-value pair to be removed.
 	 * @return The value corresponding to the parameter "key".
 	 */
-	V remove(K key);
+    @Nullable V remove(K key);
 }

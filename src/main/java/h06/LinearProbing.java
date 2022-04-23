@@ -46,8 +46,7 @@ public class LinearProbing<T extends Object> implements BinaryFct2Int<T>
      * @return ModuloUtil.addModulo(hash(key), offset, max(tableSize, offset)) % tableSize
      */
 	@Override
-	public int apply(T key, int offset)
-	{
+	public int apply(T key, int offset) {
 		int tableSize = getTableSize();
 		int a = hashFct.apply(key);
 		int i = offset;
