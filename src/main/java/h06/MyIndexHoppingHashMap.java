@@ -3,13 +3,14 @@ package h06;
 import org.jetbrains.annotations.Nullable;
 
 public class MyIndexHoppingHashMap<K, V> implements MyMap<K, V> {
-    private final double resizeThreshold;
-    private final double resizeFactor;
     private K[] theKeys;
     private V[] theValues;
-    private boolean[] occupiedSinceLastRehash;
-    private int occupiedCount = 0;
     private final BinaryFct2Int<K> hashFunction;
+
+    private int occupiedCount = 0;
+    private boolean[] occupiedSinceLastRehash;
+    private final double resizeThreshold;
+    private final double resizeFactor;
 
     /**
      * Create a new index hopping hash map.
@@ -30,6 +31,11 @@ public class MyIndexHoppingHashMap<K, V> implements MyMap<K, V> {
         this.hashFunction.setTableSize(initialSize);
     }
 
+    /**
+     * Find the key or an empty place to put the key.
+     * @param key The key to search.
+     * @return The index of the key or the index of an empty place.
+     */
     private int search(K key) {
         boolean emptyPlaceFound = false;
         int emptyPlaceIndex = -1;
@@ -52,7 +58,7 @@ public class MyIndexHoppingHashMap<K, V> implements MyMap<K, V> {
     @Override
     public @Nullable V getValue(K key) {
         int index = search(key);
-        return !key.equals(theKeys[index]) ? null : theValues[index];
+        return key.equals(theKeys[index]) ? theValues[index] : null;
     }
 
     @Override

@@ -4,6 +4,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Array;
 import java.util.LinkedList;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public class MyListsHashMap<K, V> implements MyMap<K, V> {
     private final LinkedList<KeyValuePair<K, V>>[] table;
@@ -22,56 +24,50 @@ public class MyListsHashMap<K, V> implements MyMap<K, V> {
         }
     }
 
+    private <R> R execute(K key, BiFunction<LinkedList<KeyValuePair<K, V>>, KeyValuePair<K, V>, R> foundFunction,
+                          Function<LinkedList<KeyValuePair<K, V>>, R> notFoundFunction) {
+        LinkedList<KeyValuePair<K, V>> currentList = table[hashFunction.apply(key)];
+        for (KeyValuePair<K, V> currentListElement : currentList) {
+            if (currentListElement.getKey().equals(key)) {
+                return foundFunction.apply(currentList, currentListElement);
+            }
+        }
+        return notFoundFunction.apply(currentList);
+    }
+
     @Override
     public boolean containsKey(K key) {
-        LinkedList<KeyValuePair<K, V>> currentList = table[hashFunction.apply(key)];
-
-        for (KeyValuePair<K, V> currentListElement : currentList) {
-            if (currentListElement.getKey().equals(key)) return true;
-        }
-
-        return false;
+        return execute(key, (list, pair) -> true, list -> false);
     }
 
     @Override
     public @Nullable V getValue(K key) {
-        LinkedList<KeyValuePair<K, V>> currentList = table[hashFunction.apply(key)];
-
-        for (KeyValuePair<K, V> currentListElement : currentList) {
-            if (currentListElement.getKey().equals(key)) return currentListElement.getValue();
-        }
-
-        return null;
+        return execute(key, (list, pair) -> pair.getValue(), list -> null);
     }
 
     @Override
     public @Nullable V put(K key, V value) {
-        LinkedList<KeyValuePair<K, V>> currentList = table[hashFunction.apply(key)];
-
-        for (KeyValuePair<K, V> currentListElement : currentList) {
-            if (currentListElement.getKey().equals(key)) {
-                V oldValue = currentListElement.getValue();
-                currentListElement.setValue(value);
+        return execute(key,
+            (list, pair) -> {
+                V oldValue = pair.getValue();
+                pair.setValue(value);
                 return oldValue;
-            }
-        }
-
-        currentList.addFirst(new KeyValuePair<K, V>(key, value));
-        return null;
+            },
+            list -> {
+                list.addFirst(new KeyValuePair<K, V>(key, value));
+                return null;
+            });
     }
 
     @Override
     public @Nullable V remove(K key) {
-        LinkedList<KeyValuePair<K, V>> currentList = table[hashFunction.apply(key)];
-
-        for (KeyValuePair<K, V> currentListElement : currentList) {
-            if (currentListElement.getKey().equals(key)) {
-                V value = currentListElement.getValue();
-                currentList.remove(currentListElement);
+        return execute(key,
+            (list, pair) -> {
+                V value = pair.getValue();
+                list.remove(pair);
                 return value;
-            }
-        }
-
-        return null;
+            },
+            list -> null
+        );
     }
 }
