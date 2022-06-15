@@ -30,92 +30,64 @@ public class MyIndexHoppingHashMap<K, V> implements MyMap<K, V> {
         this.hashFunction.setTableSize(initialSize);
     }
 
-    @Override
-    public boolean containsKey(K key) {
+    private int search(K key) {
+        boolean emptyPlaceFound = false;
+        int emptyPlaceIndex = -1;
+
         for (int i = 0; i < hashFunction.getTableSize(); i++) {
             int hashValue = hashFunction.apply(key, i);
-            // Position would have been occupied if element was existing
-            if (!occupiedSinceLastRehash[hashValue]) {
-                return false;
+            // Position would have been occupied if element was existing / element was found
+            if (!occupiedSinceLastRehash[hashValue] || key.equals(theKeys[hashValue])) {
+                return hashValue;
             }
-            if (key.equals(theKeys[hashValue])) {
-                return true;
+            // Memorise the position of the first empty place (needed for put)
+            if (!emptyPlaceFound && theKeys[hashValue] == null) {
+                emptyPlaceFound = true;
+                emptyPlaceIndex = hashValue;
             }
         }
-
-        return false;
+        return emptyPlaceIndex;
     }
 
     @Override
     public @Nullable V getValue(K key) {
-        for (int i = 0; i < hashFunction.getTableSize(); i++) {
-            int hashValue = hashFunction.apply(key, i);
-            // Position would have been occupied if element was existing
-            if (!occupiedSinceLastRehash[hashValue]) {
-                return null;
-            }
-            if (key.equals(theKeys[hashValue])) {
-                return theValues[hashValue];
-            }
-        }
-        return null;
+        int index = search(key);
+        return !key.equals(theKeys[index]) ? null : theValues[index];
+    }
+
+    @Override
+    public boolean containsKey(K key) {
+        int index = search(key);
+        return key.equals(theKeys[index]);
     }
 
     @Override
     public @Nullable V put(K key, V value) {
-        for (int i = 0; i < hashFunction.getTableSize(); i++) {
-            int hashValue = hashFunction.apply(key, i);
-
-            if (!occupiedSinceLastRehash[hashValue]) {
-                if (occupiedCount + 1 > hashFunction.getTableSize() * resizeThreshold) {
-                    rehash();
-                    return put(key, value);
-                } else {
-                    occupiedSinceLastRehash[hashValue] = true;
-                    theKeys[hashValue] = key;
-                    theValues[hashValue] = value;
-                    occupiedCount++;
-                    return null;
-                }
-            } else if (theKeys[hashValue].equals(key)) {
-                V oldValue = theValues[hashValue];
-                theValues[hashValue] = value;
-                return oldValue;
+        int index = search(key);
+        if (!occupiedSinceLastRehash[index]) {
+            if (occupiedCount + 1 > hashFunction.getTableSize() * resizeThreshold) {
+                rehash();
+                return put(key, value);
+            } else {
+                occupiedSinceLastRehash[index] = true;
+                occupiedCount++;
             }
         }
-
-        // Only previously occupied places available, insert element into the first free one
-        for (int i = 0; i < hashFunction.getTableSize(); i++) {
-            int hashValue = hashFunction.apply(key, i);
-
-            if (theKeys[hashValue] == null) {
-                theKeys[hashValue] = key;
-                theValues[hashValue] = value;
-                return null;
-            }
-        }
-
-        // Should never happen (hashtable is full)
-        return null;
+        // get old value / null if no old value is present
+        V oldValue = theValues[index];
+        theKeys[index] = key;
+        theValues[index] = value;
+        return oldValue;
     }
 
     @Override
     public @Nullable V remove(K key) {
-        for (int i = 0; i < hashFunction.getTableSize(); i++) {
-            int hashValue = hashFunction.apply(key, i);
-            // Position would have been occupied if element was existing
-            if (!occupiedSinceLastRehash[hashValue]) {
-                return null;
-            }
-            if (key.equals(theKeys[hashValue])) {
-                V oldValue = theValues[hashValue];
-                theKeys[hashValue] = null;
-                theValues[hashValue] = null;
-                return oldValue;
-            }
-        }
-
-        return null;
+        int index = search(key);
+        // get old value / null if key is not present
+        V oldValue = theValues[index];
+        theKeys[index] = null;
+        theValues[index] = null;
+        return oldValue;
     }
 
     /***

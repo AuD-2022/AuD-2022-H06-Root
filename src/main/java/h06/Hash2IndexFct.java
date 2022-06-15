@@ -30,7 +30,7 @@ public class Hash2IndexFct<T> implements Fct2Int<T>
 	@Override
 	public int apply(T key)
 	{
-	  return Math.floorMod(key.hashCode() + offset, tableSize);
+        return (int)Math.floorMod(Math.abs((long)key.hashCode()) + offset, tableSize);
 	}
 
     /**

@@ -13,9 +13,9 @@ public class DoubleHashing<T> implements BinaryFct2Int<T>
 	private final Hash2IndexFct<T> fct2;
 
 	/**
-	 * Creates an object of the DoubleHashingTableIndexFct class.
-	 * The object uses the hash functions specified in the "internalHashFunction0" and "internalHashFunction1" parameters.
-	 * Therefore the hash functions are stored in the object attributes of the same name for further use.
+	 * Creates an object of the DoubleHashing class.
+	 * The object uses the hash functions specified in the "fct1" and "fct2" parameters.
+	 * Therefore, the hash functions are stored in the object attributes of the same name for further use.
 	 * @param fct1 The first hash function to be used in upcoming tasks.
 	 * @param fct2 The second hash function to be used in upcoming tasks.
 	 */
@@ -45,11 +45,11 @@ public class DoubleHashing<T> implements BinaryFct2Int<T>
 	}
 
     /**
-     * Calculates the hash value of parameter "key" using "internalHashFunction0"
-     * and "internalHashFunction1" as well as parameter "factor".
+     * Calculates the hash value of parameter "key" using "fct1"
+     * and "fct2" as well as parameter "factor".
      * @param key The key from which to calculate the hash value.
      * @param factor The factor that is multiplied by the second hash function result.
-     * @return ModuloUtil.addModulo(hash0(key), offset * hash1(key), max(tableSize, offset * hash1(key)) % tableSize
+     * @return ModuloUtil.addModulo(hash0(key), factor * hash1(key), max(tableSize, factor * hash1(key)) % tableSize
      */
 	@Override
 	public int apply(T key, int factor) {
