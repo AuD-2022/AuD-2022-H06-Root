@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestForSubmission("H06")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class H06_Tests {
-    MyDate[][] testData;
+    private static MyDate[][] testData;
 
     final int TestDataSize = 1_000;
 
@@ -50,25 +50,27 @@ public class H06_Tests {
                             TestSet<MyDate> testSet = RuntimeTest.createTestSet(i, j, k, l, testData);
                             TestSet<MyDate> solutionTestSet = createTestSet(i, j, k, l, testData);
                             assertArrayEquals(testSet.getTestData(), solutionTestSet.getTestData());
-                            assertEquals(testSet.getHashTable().getClass(), solutionTestSet.getHashTable().getClass());
+                            MyMap<MyDate,MyDate> testSetHashTable = testSet.getHashTable();
+                            MyMap<MyDate,MyDate> solutionTestSetHashTable = testSet.getHashTable();
+                            assertEquals(testSetHashTable.getClass(), solutionTestSetHashTable.getClass());
 
-                            if (solutionTestSet.getHashTable().getClass().equals(MyIndexHoppingHashMap.class)){
-                                Field tableField = testSet.getClass().getDeclaredField("table");
-                                Field solutionTableField = solutionTestSet.getClass().getDeclaredField("table");
+                            if (solutionTestSetHashTable.getClass().equals(MyIndexHoppingHashMap.class)){
+                                Field tableField = testSetHashTable.getClass().getDeclaredField("theKeys");
+                                Field solutionTableField = solutionTestSetHashTable.getClass().getDeclaredField("theKeys");
                                 tableField.setAccessible(true);
                                 solutionTableField.setAccessible(true);
 
-                                assertEquals(((LinkedList<KeyValuePair<MyDate, MyDate>>[])tableField.get(testSet)).length,
-                                             ((LinkedList<KeyValuePair<MyDate, MyDate>>[])solutionTableField.get(solutionTestSet)).length);
+                                assertEquals(((Object[])tableField.get(testSetHashTable)).length,
+                                    ((Object[])solutionTableField.get(solutionTestSetHashTable)).length);
                             }
                             else {
-                                Field tableField = testSet.getClass().getDeclaredField("theKeys");
-                                Field solutionTableField = solutionTestSet.getClass().getDeclaredField("theKeys");
+                                Field tableField = testSetHashTable.getClass().getDeclaredField("table");
+                                Field solutionTableField = solutionTestSetHashTable.getClass().getDeclaredField("table");
                                 tableField.setAccessible(true);
                                 solutionTableField.setAccessible(true);
 
-                                assertEquals(((MyDate[])tableField.get(testSet)).length,
-                                             ((MyDate[])solutionTableField.get(solutionTestSet)).length);
+                                assertEquals(((LinkedList<KeyValuePair<Object, Object>>[])tableField.get(testSetHashTable)).length,
+                                    ((LinkedList<KeyValuePair<Object, Object>>[])solutionTableField.get(solutionTestSetHashTable)).length);
                             }
                         } catch (Exception e) {
                             fail(e.getMessage());

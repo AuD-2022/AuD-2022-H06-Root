@@ -43,7 +43,7 @@ public class H05_Tests
 		MyDate dateFalse = new MyDate(calendar, false);
 		MyDate dateTrue = new MyDate(calendar, true);
 
-		assertEquals(206163868, dateFalse.hashCode());
-		assertEquals(470608111, dateTrue.hashCode());
+		assertEquals(206157616, dateFalse.hashCode());
+		assertEquals(470580413, dateTrue.hashCode());
 	}
 }
