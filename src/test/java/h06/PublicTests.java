@@ -40,5 +40,12 @@ public class PublicTests {
     @Nested
     class DoubleHashingTest {
 
+        private final DoubleHashing<Integer> doubleHashing = new DoubleHashing<>(getHash2IndexFct(), getHash2IndexFct());
+
+        @Test
+        void testApply() {
+            assertEquals(49, doubleHashing.apply(1, 6));
+            assertEquals(9, doubleHashing.apply(-666, 6));
+        }
     }
 }
