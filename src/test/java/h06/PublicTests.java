@@ -42,13 +42,17 @@ public class PublicTests {
     @Nested
     class DoubleHashingTest {
 
-        private final DoubleHashing<Integer> doubleHashing = new DoubleHashing<>(getHash2IndexFct(), getHash2IndexFct());
+        private final DoubleHashing<Integer> doubleHashing = getDoubleHashing();
 
         @Test
         void testApply() {
             assertEquals(49, doubleHashing.apply(1, 6));
             assertEquals(9, doubleHashing.apply(-666, 6));
         }
+    }
+
+    private DoubleHashing<Integer> getDoubleHashing() {
+        return new DoubleHashing<>(getHash2IndexFct(), getHash2IndexFct());
     }
 
     @Nested
@@ -89,6 +93,71 @@ public class PublicTests {
             assertEquals(getDate(true), getDate(true));
             assertEquals(getDate(false), getDate(false));
             assertNotEquals(getDate(true), getDate(false));
+        }
+    }
+
+    @Nested
+    class MyIndexHoppingHashMapTest {
+
+        private final MyIndexHoppingHashMap<Integer, Integer> fib =
+            new MyIndexHoppingHashMap<>(4, 2, 0.5, getDoubleHashing());
+
+        MyIndexHoppingHashMapTest() {
+            fib.put(0, 0);
+            fib.put(1, 1);
+        }
+
+        @Test
+        void testContainsKey() {
+            assertTrue(fib.containsKey(0));
+            assertTrue(fib.containsKey(1));
+            assertFalse(fib.containsKey(2));
+            assertFalse(fib.containsKey(3));
+        }
+
+        @Test
+        void testGetValue() {
+            assertEquals(0, fib.getValue(0));
+            assertEquals(1, fib.getValue(1));
+        }
+
+        @Test
+        void testPut() {
+            assertEquals(0, fib.put(0, 2));
+            assertEquals(2, fib.getValue(0));
+
+            assertNull(fib.put(3, 2));
+            assertTrue(fib.containsKey(3));
+            assertEquals(2, fib.getValue(3));
+        }
+
+        @Test
+        void testRemove() {
+            assertNull(fib.remove(69));
+            assertEquals(1, fib.remove(1));
+            assertFalse(fib.containsKey(1));
+            assertNull(fib.getValue(1));
+        }
+
+        @Test
+        void testFib() {
+            for (int i = 2; i <= 20; i++) {
+                var a = fib.getValue(i-1);
+                assertNotNull(a);
+
+                var b = fib.getValue(i-2);
+                assertNotNull(b);
+
+                fib.put(i, a + b);
+            }
+
+            int[] expected = {
+                0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765
+            };
+
+            for (int i = 0; i < expected.length; i++) {
+                assertEquals(expected[i], fib.getValue(i));
+            }
         }
     }
 }
