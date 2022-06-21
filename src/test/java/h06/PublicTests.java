@@ -175,4 +175,41 @@ public class PublicTests {
             }
         }
     }
+
+    @Nested
+    class RuntimeTestTest {
+
+        private final MyDate[][] testdata = RuntimeTest.generateTestdata();
+
+        private final TestSet<MyDate> testSet =
+            RuntimeTest.createTestSet(1, 1, 1, 1,
+                testdata);
+
+        @Test
+        void testGenerateTestdata() {
+            assertTestData(testdata[0], true);
+            assertTestData(testdata[1], false);
+        }
+
+        private void assertTestData(MyDate[] testdata, boolean expectedBoolean) {
+            assertEquals(1000, testdata.length);
+            for (MyDate date : testdata) {
+                assertTrue(date.getYear() >= 1970);
+                assertTrue(date.getYear() <= 2022);
+                assertEquals(expectedBoolean, date.getBool());
+            }
+        }
+
+        @Test
+        void testCreateTestSet() {
+            assertTestData(testSet.getTestData(), true);
+            assertInstanceOf(MyIndexHoppingHashMap.class, testSet.getHashTable());
+        }
+
+        @Test
+        void testTest() {
+            assertDoesNotThrow(() ->
+                RuntimeTest.test(testSet));
+        }
+    }
 }
