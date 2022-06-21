@@ -97,12 +97,27 @@ public class PublicTests {
     }
 
     @Nested
-    class MyIndexHoppingHashMapTest {
-
-        private final MyIndexHoppingHashMap<Integer, Integer> fib =
-            new MyIndexHoppingHashMap<>(4, 2, 0.5, getDoubleHashing());
+    class MyIndexHoppingHashMapTest extends MyMapTest {
 
         MyIndexHoppingHashMapTest() {
+            super(new MyIndexHoppingHashMap<>(4, 2, 0.5, getDoubleHashing()));
+        }
+    }
+
+    @Nested
+    class MyListsHashMapTest extends MyMapTest {
+
+        MyListsHashMapTest() {
+            super(new h06.MyListsHashMap<>(getHash2IndexFct()));
+        }
+    }
+
+    public static abstract class MyMapTest {
+
+        protected final MyMap<Integer, Integer> fib;
+
+        public MyMapTest(MyMap<Integer, Integer> fib) {
+            this.fib = fib;
             fib.put(0, 0);
             fib.put(1, 1);
         }
@@ -142,10 +157,10 @@ public class PublicTests {
         @Test
         void testFib() {
             for (int i = 2; i <= 20; i++) {
-                var a = fib.getValue(i-1);
+                var a = fib.getValue(i - 1);
                 assertNotNull(a);
 
-                var b = fib.getValue(i-2);
+                var b = fib.getValue(i - 2);
                 assertNotNull(b);
 
                 fib.put(i, a + b);
