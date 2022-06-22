@@ -90,7 +90,7 @@ public class MyDate
 		if (randomBoolean) {
 			return (int)
         Math.floorMod(
-            Math.floorMod((coefficientYear * year), (long)Integer.MAX_VALUE)
+            Math.floorMod(((long)Math.floorMod(coefficientYear, Integer.MAX_VALUE) * year), (long)Integer.MAX_VALUE)
 			+ Math.floorMod((coefficientMonth * month), Integer.MAX_VALUE)
 			+ Math.floorMod((coefficientDay * day), Integer.MAX_VALUE)
 			+ Math.floorMod((coefficientHour * hour), Integer.MAX_VALUE)
