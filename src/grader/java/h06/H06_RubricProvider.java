@@ -11,7 +11,9 @@ public class H06_RubricProvider implements RubricProvider {
 
     @Override
     public Rubric getRubric() {
-        return null;
+        return Rubric.builder()
+            .title("H6 | Hashtabellen")
+            .build();
     }
 
     @SafeVarargs
