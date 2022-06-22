@@ -2,7 +2,6 @@ package h06;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.Array;
 import java.util.LinkedList;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -18,7 +17,7 @@ public class MyListsHashMap<K, V> implements MyMap<K, V> {
     @SuppressWarnings("unchecked")
     public MyListsHashMap(Fct2Int<K> hashFunction) {
         this.hashFunction = hashFunction;
-        table = (LinkedList<KeyValuePair<K, V>>[]) Array.newInstance(LinkedList.class, hashFunction.getTableSize());
+        table = (LinkedList<KeyValuePair<K, V>>[]) new LinkedList<?>[hashFunction.getTableSize()];
         for (int i = 0; i < table.length; i++) {
             table[i] = new LinkedList<KeyValuePair<K, V>>();
         }
