@@ -19,7 +19,7 @@ public class PublicTests {
         @Test
         void testApply() {
             assertEquals(7, fct.apply(1));
-            assertEquals(30, fct.apply(-666));
+            assertEquals(51, fct.apply(-666));
         }
     }
 
@@ -35,7 +35,7 @@ public class PublicTests {
         @Test
         void testApply() {
             assertEquals(13, probing.apply(1, 6));
-            assertEquals(36, probing.apply(-666, 6));
+            assertEquals(57, probing.apply(-666, 6));
         }
     }
 
@@ -47,7 +47,7 @@ public class PublicTests {
         @Test
         void testApply() {
             assertEquals(49, doubleHashing.apply(1, 6));
-            assertEquals(9, doubleHashing.apply(-666, 6));
+            assertEquals(12, doubleHashing.apply(-666, 6));
         }
     }
 
