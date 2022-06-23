@@ -2,6 +2,7 @@ package h06.h1;
 
 import h06.DoubleHashing;
 import h06.Hash2IndexFct;
+import h06.mocks.Mock;
 import h06.utils.TutorAssertions;
 import kotlin.Pair;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -9,8 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
-import org.mockito.Answers;
-import org.mockito.Mockito;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.util.List;
@@ -80,7 +79,8 @@ public class DoubleHashingTests {
         public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
             Random random = new Random(SEED);
 
-            return Stream.generate(() -> new Object[] {new Hash2IndexFct<>(random.nextInt(10) + 1, 0), random.nextInt(10) + 1})
+            return Stream.generate(() -> new Object[] {Mock.getMock(Hash2IndexFct.class, Mock.HASH_2_INDEX_FCT,
+                    random.nextInt(10) + 1, 0), random.nextInt(10) + 1})
                 .limit(STREAM_SIZE)
                 .map(Arguments::of);
         }

@@ -19,7 +19,6 @@ import java.util.stream.Stream;
 
 import static h06.Config.SEED;
 import static h06.Config.STREAM_SIZE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestForSubmission("h06")
 public class Hash2IndexFctTests {

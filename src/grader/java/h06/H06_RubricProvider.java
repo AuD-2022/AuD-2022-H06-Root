@@ -3,9 +3,7 @@ package h06;
 import h06.h1.DoubleHashingTests;
 import h06.h1.Hash2IndexFctTests;
 import h06.h1.LinearProbingTests;
-import h06.transformers.Hash2IndexFctTransformer;
 import org.sourcegrade.jagr.api.rubric.*;
-import org.sourcegrade.jagr.api.testing.RubricConfiguration;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -48,11 +46,6 @@ public class H06_RubricProvider implements RubricProvider {
     @SafeVarargs
     private static Criterion makeCriterion(String shortDescription, Callable<Method>... callables) {
         return makeCriterion(shortDescription, 0, 1, callables);
-    }
-
-    @Override
-    public void configure(RubricConfiguration configuration) {
-        configuration.addTransformer(new Hash2IndexFctTransformer());
     }
 
     @SafeVarargs
