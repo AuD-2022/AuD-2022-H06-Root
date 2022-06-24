@@ -3,7 +3,10 @@ package h06;
 import h06.h1.DoubleHashingTests;
 import h06.h1.Hash2IndexFctTests;
 import h06.h1.LinearProbingTests;
+import h06.h3.MyIndexHoppingHashMapTests;
+import h06.transformers.MyIndexHoppingHashMapTransformer;
 import org.sourcegrade.jagr.api.rubric.*;
+import org.sourcegrade.jagr.api.testing.RubricConfiguration;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -38,9 +41,55 @@ public class H06_RubricProvider implements RubricProvider {
                         () -> DoubleHashingTests.class
                             .getDeclaredMethod("testApplyOverflow", Hash2IndexFct.class, int.class)
                     )
+                ),
+                makeCriterionFromChildCriteria("H3 | Mehrfachsondierung",
+                    makeCriterion("[[[containsKey(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert in den internen Arrays vorhanden sind.",
+                        () -> MyIndexHoppingHashMapTests.class
+                            .getDeclaredMethod("testContainsKey", int.class, int.class, double.class, double.class)),
+                    makeCriterion("[[[containsKey(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert nicht in den internen Arrays vorhanden sind.",
+                        () -> MyIndexHoppingHashMapTests.class
+                            .getDeclaredMethod("testContainsKeyForeign", int.class, int.class, double.class, double.class)),
+                    makeCriterion("[[[getValue(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert in den internen Arrays vorhanden sind.",
+                        () -> MyIndexHoppingHashMapTests.class
+                            .getDeclaredMethod("testGetValue", int.class, int.class, double.class, double.class)),
+                    makeCriterion("[[[getValue(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert nicht in den internen Arrays vorhanden sind.",
+                        () -> MyIndexHoppingHashMapTests.class
+                            .getDeclaredMethod("testGetValueForeign", int.class, int.class, double.class, double.class)),
+                    makeCriterion("[[[put(K, V)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert nicht bereits in den internen Arrays vorhanden sind.",
+                        () -> MyIndexHoppingHashMapTests.class
+                            .getDeclaredMethod("testPut", int.class, int.class, double.class, double.class)),
+                    makeCriterion("[[[put(K, V)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert bereits in den internen Arrays vorhanden sind.",
+                        () -> MyIndexHoppingHashMapTests.class
+                            .getDeclaredMethod("testPutDuplicate", int.class, int.class, double.class, double.class)),
+                    makeCriterion("[[[remove(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert in den internen Arrays vorhanden sind.",
+                        () -> MyIndexHoppingHashMapTests.class
+                            .getDeclaredMethod("testRemove", int.class, int.class, double.class, double.class)),
+                    makeCriterion("[[[remove(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert nicht in den internen Arrays vorhanden sind.",
+                        () -> MyIndexHoppingHashMapTests.class
+                            .getDeclaredMethod("testRemoveForeign", int.class, int.class, double.class, double.class)),
+                    makeCriterion("[[[rehash()]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben.",
+                        () -> MyIndexHoppingHashMapTests.class
+                            .getDeclaredMethod("testRehash", int.class, int.class, double.class, double.class)),
+                    makeCriterion("In [[[put(K, V)]]] in Klasse [[[MyIndexHoppingHashMap]]] wird [[[rehash()]]] aufgerufen, "
+                            + "wenn der Schwellwert überschritten wurde.",
+                        () -> MyIndexHoppingHashMapTests.class
+                            .getDeclaredMethod("testRehashInPut", int.class, int.class, double.class, double.class))
                 )
             )
             .build();
+    }
+
+    @Override
+    public void configure(RubricConfiguration configuration) {
+        configuration.addTransformer(new MyIndexHoppingHashMapTransformer());
     }
 
     @SafeVarargs
