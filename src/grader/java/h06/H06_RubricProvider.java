@@ -4,6 +4,7 @@ import h06.h1.DoubleHashingTests;
 import h06.h1.Hash2IndexFctTests;
 import h06.h1.LinearProbingTests;
 import h06.h3.MyIndexHoppingHashMapTests;
+import h06.h4.MyListsHashMapTests;
 import h06.transformers.MyIndexHoppingHashMapTransformer;
 import org.sourcegrade.jagr.api.rubric.*;
 import org.sourcegrade.jagr.api.testing.RubricConfiguration;
@@ -82,6 +83,40 @@ public class H06_RubricProvider implements RubricProvider {
                             + "wenn der Schwellwert überschritten wurde.",
                         () -> MyIndexHoppingHashMapTests.class
                             .getDeclaredMethod("testRehashInPut", int.class, int.class, double.class, double.class))
+                ),
+                makeCriterionFromChildCriteria("H4 | Hashtabelle von Listen",
+                    makeCriterion("[[[containsKey(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert in [[[table]]] vorhanden sind.",
+                        () -> MyListsHashMapTests.class
+                            .getDeclaredMethod("testContainsKey", MyListsHashMap.class, int.class)),
+                    makeCriterion("[[[containsKey(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert nicht in [[[table]]] vorhanden sind.",
+                        () -> MyListsHashMapTests.class
+                            .getDeclaredMethod("testContainsKeyDisjoint", MyListsHashMap.class, int.class)),
+                    makeCriterion("[[[getValue(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert in [[[table]]] vorhanden sind.",
+                        () -> MyListsHashMapTests.class
+                            .getDeclaredMethod("testGetValue", MyListsHashMap.class, int.class)),
+                    makeCriterion("[[[getValue(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert nicht in [[[table]]] vorhanden sind.",
+                        () -> MyListsHashMapTests.class
+                            .getDeclaredMethod("testGetValueDisjoint", MyListsHashMap.class, int.class)),
+                    makeCriterion("[[[put(K, V)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert nicht bereits in [[[table]]] vorhanden sind.",
+                        () -> MyListsHashMapTests.class
+                            .getDeclaredMethod("testPut", MyListsHashMap.class, int.class)),
+                    makeCriterion("[[[put(K, V)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert bereits in [[[table]]] vorhanden sind.",
+                        () -> MyListsHashMapTests.class
+                            .getDeclaredMethod("testPutDuplicate", MyListsHashMap.class, int.class)),
+                    makeCriterion("[[[remove(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert in [[[table]]] vorhanden sind.",
+                        () -> MyListsHashMapTests.class
+                            .getDeclaredMethod("testRemove", MyListsHashMap.class, int.class)),
+                    makeCriterion("[[[remove(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
+                            + "wenn Schlüssel und zugeordneter Wert nicht in [[[table]]] vorhanden sind.",
+                        () -> MyListsHashMapTests.class
+                            .getDeclaredMethod("testRemoveDisjoint", MyListsHashMap.class, int.class))
                 )
             )
             .build();
