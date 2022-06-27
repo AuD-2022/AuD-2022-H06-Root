@@ -43,78 +43,77 @@ public class H06_RubricProvider implements RubricProvider {
                             .getDeclaredMethod("testApplyOverflow", Hash2IndexFct.class, int.class)
                     )
                 ),
-                makeCriterionFromChildCriteria("H3 | Mehrfachsondierung",
-                    makeCriterion("[[[containsKey(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert in den internen Arrays vorhanden sind.",
+                makeCriterionFromChildCriteria("H3 | Mehrfachsondierung ([[[MyIndexHoppingHashMap]]])",
+                    makeCriterion("[[[containsKey(K)]]] funktioniert wie beschrieben,  wenn Schlüssel und "
+                            + "zugeordneter Wert in den internen Arrays vorhanden sind.",
                         () -> MyIndexHoppingHashMapTests.class
                             .getDeclaredMethod("testContainsKey", int.class, int.class, double.class, double.class)),
-                    makeCriterion("[[[containsKey(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert nicht in den internen Arrays vorhanden sind.",
+                    makeCriterion("[[[containsKey(K)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert nicht in den internen Arrays vorhanden sind.",
                         () -> MyIndexHoppingHashMapTests.class
                             .getDeclaredMethod("testContainsKeyForeign", int.class, int.class, double.class, double.class)),
-                    makeCriterion("[[[getValue(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert in den internen Arrays vorhanden sind.",
+                    makeCriterion("[[[getValue(K)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert in den internen Arrays vorhanden sind.",
                         () -> MyIndexHoppingHashMapTests.class
                             .getDeclaredMethod("testGetValue", int.class, int.class, double.class, double.class)),
-                    makeCriterion("[[[getValue(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert nicht in den internen Arrays vorhanden sind.",
+                    makeCriterion("[[[getValue(K)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert nicht in den internen Arrays vorhanden sind.",
                         () -> MyIndexHoppingHashMapTests.class
                             .getDeclaredMethod("testGetValueForeign", int.class, int.class, double.class, double.class)),
-                    makeCriterion("[[[put(K, V)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert nicht bereits in den internen Arrays vorhanden sind.",
+                    makeCriterion("[[[put(K, V)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert nicht bereits in den internen Arrays vorhanden sind.",
                         () -> MyIndexHoppingHashMapTests.class
                             .getDeclaredMethod("testPut", int.class, int.class, double.class, double.class)),
-                    makeCriterion("[[[put(K, V)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert bereits in den internen Arrays vorhanden sind.",
+                    makeCriterion("[[[put(K, V)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert bereits in den internen Arrays vorhanden sind.",
                         () -> MyIndexHoppingHashMapTests.class
                             .getDeclaredMethod("testPutDuplicate", int.class, int.class, double.class, double.class)),
-                    makeCriterion("[[[remove(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert in den internen Arrays vorhanden sind.",
+                    makeCriterion("[[[remove(K)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert in den internen Arrays vorhanden sind.",
                         () -> MyIndexHoppingHashMapTests.class
                             .getDeclaredMethod("testRemove", int.class, int.class, double.class, double.class)),
-                    makeCriterion("[[[remove(K)]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert nicht in den internen Arrays vorhanden sind.",
+                    makeCriterion("[[[remove(K)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert nicht in den internen Arrays vorhanden sind.",
                         () -> MyIndexHoppingHashMapTests.class
                             .getDeclaredMethod("testRemoveForeign", int.class, int.class, double.class, double.class)),
-                    makeCriterion("[[[rehash()]]] in Klasse [[[MyIndexHoppingHashMap]]] funktioniert wie beschrieben.",
+                    makeCriterion("[[[rehash()]]] funktioniert wie beschrieben.",
                         () -> MyIndexHoppingHashMapTests.class
                             .getDeclaredMethod("testRehash", int.class, int.class, double.class, double.class)),
-                    makeCriterion("In [[[put(K, V)]]] in Klasse [[[MyIndexHoppingHashMap]]] wird [[[rehash()]]] aufgerufen, "
-                            + "wenn der Schwellwert überschritten wurde.",
+                    makeCriterion("In [[[put(K, V)]]] wird [[[rehash()]]] aufgerufen, wenn der Schwellwert überschritten wurde.",
                         () -> MyIndexHoppingHashMapTests.class
                             .getDeclaredMethod("testRehashInPut", int.class, int.class, double.class, double.class))
                 ),
-                makeCriterionFromChildCriteria("H4 | Hashtabelle von Listen",
-                    makeCriterion("[[[containsKey(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert in [[[table]]] vorhanden sind.",
+                makeCriterionFromChildCriteria("H4 | Hashtabelle von Listen ([[[MyListsHashMap]]])",
+                    makeCriterion("[[[containsKey(K)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert in [[[table]]] vorhanden sind.",
                         () -> MyListsHashMapTests.class
                             .getDeclaredMethod("testContainsKey", MyListsHashMap.class, int.class)),
-                    makeCriterion("[[[containsKey(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert nicht in [[[table]]] vorhanden sind.",
+                    makeCriterion("[[[containsKey(K)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert nicht in [[[table]]] vorhanden sind.",
                         () -> MyListsHashMapTests.class
                             .getDeclaredMethod("testContainsKeyDisjoint", MyListsHashMap.class, int.class)),
-                    makeCriterion("[[[getValue(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert in [[[table]]] vorhanden sind.",
+                    makeCriterion("[[[getValue(K)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert in [[[table]]] vorhanden sind.",
                         () -> MyListsHashMapTests.class
                             .getDeclaredMethod("testGetValue", MyListsHashMap.class, int.class)),
-                    makeCriterion("[[[getValue(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert nicht in [[[table]]] vorhanden sind.",
+                    makeCriterion("[[[getValue(K)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert nicht in [[[table]]] vorhanden sind.",
                         () -> MyListsHashMapTests.class
                             .getDeclaredMethod("testGetValueDisjoint", MyListsHashMap.class, int.class)),
-                    makeCriterion("[[[put(K, V)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert nicht bereits in [[[table]]] vorhanden sind.",
+                    makeCriterion("[[[put(K, V)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert nicht bereits in [[[table]]] vorhanden sind.",
                         () -> MyListsHashMapTests.class
                             .getDeclaredMethod("testPut", MyListsHashMap.class, int.class)),
-                    makeCriterion("[[[put(K, V)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert bereits in [[[table]]] vorhanden sind.",
+                    makeCriterion("[[[put(K, V)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert bereits in [[[table]]] vorhanden sind.",
                         () -> MyListsHashMapTests.class
                             .getDeclaredMethod("testPutDuplicate", MyListsHashMap.class, int.class)),
-                    makeCriterion("[[[remove(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert in [[[table]]] vorhanden sind.",
+                    makeCriterion("[[[remove(K)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert in [[[table]]] vorhanden sind.",
                         () -> MyListsHashMapTests.class
                             .getDeclaredMethod("testRemove", MyListsHashMap.class, int.class)),
-                    makeCriterion("[[[remove(K)]]] in Klasse [[[MyListsHashMap]]] funktioniert wie beschrieben, "
-                            + "wenn Schlüssel und zugeordneter Wert nicht in [[[table]]] vorhanden sind.",
+                    makeCriterion("[[[remove(K)]]] funktioniert wie beschrieben, wenn Schlüssel und "
+                            + "zugeordneter Wert nicht in [[[table]]] vorhanden sind.",
                         () -> MyListsHashMapTests.class
                             .getDeclaredMethod("testRemoveDisjoint", MyListsHashMap.class, int.class))
                 )
