@@ -5,12 +5,15 @@ import h06.h1.Hash2IndexFctTests;
 import h06.h1.LinearProbingTests;
 import h06.h3.MyIndexHoppingHashMapTests;
 import h06.h4.MyListsHashMapTests;
+import h06.h5.MyDateTests;
+import h06.transformers.MyDateTransformer;
 import h06.transformers.MyIndexHoppingHashMapTransformer;
 import org.sourcegrade.jagr.api.rubric.*;
 import org.sourcegrade.jagr.api.testing.RubricConfiguration;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.concurrent.Callable;
 
 @RubricForSubmission("h06")
@@ -116,6 +119,17 @@ public class H06_RubricProvider implements RubricProvider {
                             + "zugeordneter Wert nicht in [[[table]]] vorhanden sind.",
                         () -> MyListsHashMapTests.class
                             .getDeclaredMethod("testRemoveDisjoint", MyListsHashMap.class, int.class))
+                ),
+                makeCriterionFromChildCriteria("H5 | Eigene hashCode-Implementation ([[[MyDate]]])",
+                    makeCriterion("Der Konstruktor funktioniert wie beschrieben.",
+                        () -> MyDateTests.class
+                            .getDeclaredMethod("testConstructor", Calendar.class, boolean.class)),
+                    makeCriterion("[[[hashCode()]]] funktioniert wie beschrieben.",
+                        () -> MyDateTests.class
+                            .getDeclaredMethod("testHashCode", Calendar.class, boolean.class)),
+                    makeCriterion("[[[equals(Object)]]] funktioniert wie beschrieben.",
+                        () -> MyDateTests.class
+                            .getDeclaredMethod("testEquals"))
                 )
             )
             .build();
@@ -124,6 +138,7 @@ public class H06_RubricProvider implements RubricProvider {
     @Override
     public void configure(RubricConfiguration configuration) {
         configuration.addTransformer(new MyIndexHoppingHashMapTransformer());
+        configuration.addTransformer(new MyDateTransformer());
     }
 
     @SafeVarargs
