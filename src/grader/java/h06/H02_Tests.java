@@ -18,7 +18,7 @@ public class H02_Tests {
     @SuppressWarnings("rawtypes")
     @Test
     public void H02_MyMap() {
-        Class<?> klass = Util_Tests.checkType("MyMap", "h06.hashTables", true, 4, 2);
+        Class<?> klass = Util_Tests.checkType("MyMap", "h06", true, 4, 2);
 
         Method containsKey = Util_Tests.checkMethod(klass, "containsKey", boolean.class, Object.class);
         Method getValue = Util_Tests.checkMethod(klass, "getValue", Object.class, Object.class);

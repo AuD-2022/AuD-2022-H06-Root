@@ -18,7 +18,7 @@ public class H01_Tests {
     @SuppressWarnings("rawtypes")
     @Test
     public void H01_OtherToIntFunction() {
-        Class klass = Util_Tests.checkType("OtherToIntFunction", "h06.hashFunctions", true, 3, 1);
+        Class klass = Util_Tests.checkType("Fct2Int", "h06", true, 3, 1);
 
         Method apply = Util_Tests.checkMethod(klass, "apply", int.class, Object.class);
         Method getTableSize = Util_Tests.checkMethod(klass, "setTableSize", void.class, int.class);
@@ -28,7 +28,7 @@ public class H01_Tests {
     @SuppressWarnings("rawtypes")
     @Test
     public void H01_OtherAndIntToIntFunction() {
-        Class klass = Util_Tests.checkType("OtherAndIntToIntFunction", "h06.hashFunctions", true, 3, 1);
+        Class klass = Util_Tests.checkType("BinaryFct2Int", "h06", true, 3, 1);
 
         Method apply = Util_Tests.checkMethod(klass, "apply", int.class, Object.class, int.class);
         Method getTableSize = Util_Tests.checkMethod(klass, "setTableSize", void.class, int.class);

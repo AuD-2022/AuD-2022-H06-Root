@@ -52,6 +52,6 @@ public class H01_Testsb {
         LinearProbing<Object> hashFunction = new LinearProbing<Object>(internalHashFunction);
         assertEquals(2, hashFunction.apply("t", 1));
         hashFunction.setTableSize(100);
-        assertEquals(51, hashFunction.apply("testen", 23));
+        assertEquals(5, hashFunction.apply("testen", 23));
     }
 }

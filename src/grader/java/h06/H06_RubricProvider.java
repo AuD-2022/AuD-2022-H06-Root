@@ -125,17 +125,17 @@ public class H06_RubricProvider implements RubricProvider {
                     .requirePass(JUnitTestRef.ofMethod(() -> H03_Tests.class.getMethod("H03_MyIndexHoppingHashMapPutSingle")))
                     .requirePass(JUnitTestRef.ofMethod(() -> H03_Tests.class.getMethod("H03_MyIndexHoppingHashMapPutMultiple")))
                     .pointsPassed((testCycle, criterion) -> GradeResult.ofCorrect(1))
-                    .pointsFailed((testCycle, criterion) -> GradeResult.ofIncorrect(1))
+//                   .pointsFailed((testCycle, criterion) -> GradeResult.ofIncorrect(1)) TODO: DOESNT WORK ANYMORE
                     .build(),
                 Grader.testAwareBuilder()
                     .requirePass(JUnitTestRef.ofMethod(() -> H03_Tests.class.getMethod("H03_MyIndexHoppingHashMapPutReplace")))
                     .pointsPassed((testCycle, criterion) -> GradeResult.ofCorrect(1))
-                    .pointsFailed((testCycle, criterion) -> GradeResult.ofIncorrect(1))
+//                    .pointsFailed((testCycle, criterion) -> GradeResult.ofIncorrect(1)) TODO: DOESNT WORK ANYMORE
                     .build(),
                 Grader.testAwareBuilder()
                     .requirePass(JUnitTestRef.ofMethod(() -> H03_Tests.class.getMethod("H03_MyIndexHoppingHashMapPutMultipleResize")))
                     .pointsPassed((testCycle, criterion) -> GradeResult.ofCorrect(1))
-                    .pointsFailed((testCycle, criterion) -> GradeResult.ofIncorrect(1))
+//                    .pointsFailed((testCycle, criterion) -> GradeResult.ofIncorrect(1)) TODO: DOESNT WORK ANYMORE
                     .build()
             )
         ).build();

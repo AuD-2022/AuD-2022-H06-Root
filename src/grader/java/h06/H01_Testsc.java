@@ -57,9 +57,9 @@ public class H01_Testsc {
         Hash2IndexFct<Object> internalHashFunction1 = new Hash2IndexFct<Object>(41, 29);
         DoubleHashing<Object> hashFunction = new DoubleHashing<Object>(internalHashFunction0, internalHashFunction1);
 
-        assertEquals(15, hashFunction.apply("t", 1));
+        assertEquals(16, hashFunction.apply("t", 1));
         hashFunction.setTableSize(674);
-        assertEquals(463, hashFunction.apply("testen", 134));
+        assertEquals(29, hashFunction.apply("testen", 134));
     }
 
 }

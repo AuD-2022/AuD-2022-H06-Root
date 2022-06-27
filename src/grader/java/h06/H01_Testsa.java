@@ -50,6 +50,6 @@ public class H01_Testsa {
         Hash2IndexFct<Object> hashFunction = new Hash2IndexFct<Object>(10, 15);
         assertEquals(1, hashFunction.apply("t"));
         hashFunction.setTableSize(100);
-        assertEquals(38, hashFunction.apply("testen"));
+        assertEquals(92, hashFunction.apply("testen"));
     }
 }
