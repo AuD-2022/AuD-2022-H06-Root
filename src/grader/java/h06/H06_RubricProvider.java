@@ -130,6 +130,28 @@ public class H06_RubricProvider implements RubricProvider {
                     makeCriterion("[[[equals(Object)]]] funktioniert wie beschrieben.",
                         () -> MyDateTests.class
                             .getDeclaredMethod("testEquals"))
+                ),
+                makeCriterionFromChildCriteria("H6 | Tests ([[[RuntimeTests]]])",
+                    Criterion.builder()
+                        .shortDescription("Zufallszahlen werden in [[[generateTestdata()]]] wie beschrieben generiert. "
+                            + "(kein Filtern, sondern Modulo-Bildung)")
+                        .build(),
+                    Criterion.builder()
+                        .shortDescription("Die Dimensionen des von [[[generateTestdata()]]] zurückgegebenen Arrays sind korrekt.")
+                        .build(),
+                    Criterion.builder()
+                        .shortDescription("Die Elemente in dem von [[[generateTestdata()]]] zurückgegebenen Array wurden korrekt "
+                            + "initialisiert.")
+                        .build(),
+                    Criterion.builder()
+                        .shortDescription("Methode [[[createTestSet(int, int, int, int, MyDate[][])]]] funktioniert wie "
+                            + "beschrieben.")
+                        .build(),
+                    Criterion.builder()
+                        .shortDescription("Methode [[[test(TestSet)]]] funktioniert wie beschrieben.")
+                        .minPoints(0)
+                        .maxPoints(2)
+                        .build()
                 )
             )
             .build();
