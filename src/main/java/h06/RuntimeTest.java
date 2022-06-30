@@ -17,8 +17,8 @@ public class RuntimeTest
     public static MyDate[][] generateTestdata()
     {
         Calendar maxTimeCalendar = Calendar.getInstance();
-        maxTimeCalendar.set(2022, Calendar.DECEMBER, 31, 23, 59);
-        long maxTime = maxTimeCalendar.getTimeInMillis() + 1;
+        maxTimeCalendar.set(2023, Calendar.JANUARY, 1);
+        long maxTime = maxTimeCalendar.getTimeInMillis();
 
         MyDate[][] testSet = new MyDate[2][TEST_SET_SIZE];
 
