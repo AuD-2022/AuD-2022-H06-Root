@@ -40,7 +40,8 @@
         "h06/RuntimeTest.java",
         "h06/TestSet.java",
 
-        "h06/ExampleJUnitTest.java"
+        "h06/ExampleJUnitTest.java",
+        "h06/PublicTests.java"
       ]
     }
   ]
