@@ -1,11 +1,8 @@
 package h06.h1;
 
 import h06.Hash2IndexFct;
-import h06.transformers.Hash2IndexFctTransformer;
 import h06.utils.TutorAssertions;
 import kotlin.Pair;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -22,16 +19,6 @@ import static h06.Config.STREAM_SIZE;
 
 @TestForSubmission("h06")
 public class Hash2IndexFctTests {
-
-    @BeforeAll
-    public static void deactivateSurrogate() {
-        Hash2IndexFctTransformer.SURROGATE_ACTIVE = false;
-    }
-
-    @AfterAll
-    public static void reactivateSurrogate() {
-        Hash2IndexFctTransformer.SURROGATE_ACTIVE = true;
-    }
 
     @ParameterizedTest
     @ArgumentsSource(Provider.class)

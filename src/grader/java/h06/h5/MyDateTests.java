@@ -156,25 +156,17 @@ public class MyDateTests {
             long coefficientHour = 1234L;
             long coefficientMinute = 99998L;
 
-//            return Math.floorMod(
-//                Math.floorMod(coefficientYear * year, (long) Integer.MAX_VALUE)
-//                    + Math.floorMod(coefficientMonth * month, Integer.MAX_VALUE)
-//                    + Math.floorMod(coefficientDay * day, Integer.MAX_VALUE)
-//                    + Math.floorMod(coefficientHour * hour, Integer.MAX_VALUE)
-//                    + Math.floorMod(coefficientMinute * minute, Integer.MAX_VALUE),
-//                Integer.MAX_VALUE);
-            return (int) Math.floorMod(
-                Math.floorMod((coefficientYear * year), (long)Integer.MAX_VALUE)
-                        + Math.floorMod((coefficientMonth * month), Integer.MAX_VALUE)
-                        + Math.floorMod((coefficientDay * day), Integer.MAX_VALUE)
-                        + Math.floorMod((coefficientHour * hour), Integer.MAX_VALUE)
-                        + Math.floorMod((coefficientMinute * minute), Integer.MAX_VALUE)
-                    , Integer.MAX_VALUE);
+            return Math.floorMod(
+                Math.floorMod(coefficientYear * year, (long) Integer.MAX_VALUE)
+                    + Math.floorMod(coefficientMonth * month, Integer.MAX_VALUE)
+                    + Math.floorMod(coefficientDay * day, Integer.MAX_VALUE)
+                    + Math.floorMod(coefficientHour * hour, Integer.MAX_VALUE)
+                    + Math.floorMod(coefficientMinute * minute, Integer.MAX_VALUE),
+                Integer.MAX_VALUE);
         } else {
             long coefficientSum = 98924L;
 
-//            return Math.floorMod(((year + month + day + hour + minute) * coefficientSum), Integer.MAX_VALUE);
-            return (int)Math.floorMod(((year + month + day + hour + minute) * coefficientSum), Integer.MAX_VALUE);
+            return Math.floorMod(((year + month + day + hour + minute) * coefficientSum), Integer.MAX_VALUE);
         }
     }
 }

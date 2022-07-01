@@ -25,6 +25,7 @@ import static h06.Config.SEED;
 import static h06.Config.STREAM_SIZE;
 
 @TestForSubmission("h06")
+@SuppressWarnings("DuplicatedCode")
 public class MyIndexHoppingHashMapTests {
 
     public static boolean REHASH_CALLED = false;
@@ -37,9 +38,7 @@ public class MyIndexHoppingHashMapTests {
     @ParameterizedTest
     @ArgumentsSource(Provider.class)
     public void testContainsKey(int tableSize, int index, double resizeFactor, double resizeThreshold) {
-        BinaryFct2IntImpl binaryFct2Int = new BinaryFct2IntImpl(tableSize, index);
-        MyIndexHoppingHashMap<Object, Object> instance = new MyIndexHoppingHashMap<>(tableSize, resizeFactor, resizeThreshold,
-            binaryFct2Int);
+        MyIndexHoppingHashMap<Object, Object> instance = getHashFunction(tableSize, index, resizeFactor, resizeThreshold);
         Object key = new Object();
         Object value = new Object();
         ((Object[]) ReflectionUtils.getFieldValue("theKeys", instance))[index] = key;
@@ -50,10 +49,10 @@ public class MyIndexHoppingHashMapTests {
         TutorAssertions.assertEquals(
             true, null,
             instance.containsKey(key), null,
-            "[[[containsKey(K)]]] did not return [[[true]]], even though the key is in [[[theKeys]]] at the correct position",
+            "[[[containsKey(K)]]] did not return [[[true]]], even though the key is at the correct position in [[[theKeys]]]",
             () -> List.of(
                 new Pair<>("[[[binaryFct2Int]]]",
-                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(Object, int)]]] always returns " + index),
+                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(T, int)]]] always returns " + index),
                 new Pair<>("[[[this]]]", "[[[new MyIndexHoppingHashMap<>(%d, %f, %f, binaryFct2Int)]]] ".formatted(
                     tableSize, resizeFactor, resizeThreshold)
                     + "[[[theKeys]]], [[[theValues]]], [[[occupiedSinceLastRehash]]] and [[[occupiedCount]]] have been modified "
@@ -64,16 +63,14 @@ public class MyIndexHoppingHashMapTests {
     @ParameterizedTest
     @ArgumentsSource(Provider.class)
     public void testContainsKeyForeign(int tableSize, int index, double resizeFactor, double resizeThreshold) {
-        BinaryFct2IntImpl binaryFct2Int = new BinaryFct2IntImpl(tableSize, index);
-        MyIndexHoppingHashMap<Object, Object> instance = new MyIndexHoppingHashMap<>(tableSize, resizeFactor, resizeThreshold,
-            binaryFct2Int);
+        MyIndexHoppingHashMap<Object, Object> instance = getHashFunction(tableSize, index, resizeFactor, resizeThreshold);
 
         TutorAssertions.assertEquals(
             false, null,
             instance.containsKey(new Object()), null,
             "[[[containsKey(K)]]] did not return [[[false]]], even though the key is not in [[[theKeys]]]", () -> List.of(
                 new Pair<>("[[[binaryFct2Int]]]",
-                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(Object, int)]]] always returns " + index),
+                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(T, int)]]] always returns " + index),
                 new Pair<>("[[[this]]]", "[[[new MyIndexHoppingHashMap<>(%d, %f, %f, binaryFct2Int)]]] ".formatted(
                     tableSize, resizeFactor, resizeThreshold)
                     + "[[[theKeys]]], [[[theValues]]], [[[occupiedSinceLastRehash]]] and [[[occupiedCount]]] have been modified "
@@ -84,9 +81,7 @@ public class MyIndexHoppingHashMapTests {
     @ParameterizedTest
     @ArgumentsSource(Provider.class)
     public void testGetValue(int tableSize, int index, double resizeFactor, double resizeThreshold) {
-        BinaryFct2IntImpl binaryFct2Int = new BinaryFct2IntImpl(tableSize, index);
-        MyIndexHoppingHashMap<Object, Object> instance = new MyIndexHoppingHashMap<>(tableSize, resizeFactor, resizeThreshold,
-            binaryFct2Int);
+        MyIndexHoppingHashMap<Object, Object> instance = getHashFunction(tableSize, index, resizeFactor, resizeThreshold);
         Object key = new Object();
         Object value = new Object();
         ((Object[]) ReflectionUtils.getFieldValue("theKeys", instance))[index] = key;
@@ -100,7 +95,7 @@ public class MyIndexHoppingHashMapTests {
             "[[[getValue(K)]]] did not return the expected object, even though key and value are both at the correct position",
             () -> List.of(
                 new Pair<>("[[[binaryFct2Int]]]",
-                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(Object, int)]]] always returns " + index),
+                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(T, int)]]] always returns " + index),
                 new Pair<>("[[[this]]]", "[[[new MyIndexHoppingHashMap<>(%d, %f, %f, binaryFct2Int)]]] ".formatted(
                     tableSize, resizeFactor, resizeThreshold)
                     + "[[[theKeys]]], [[[theValues]]], [[[occupiedSinceLastRehash]]] and [[[occupiedCount]]] have been modified "
@@ -111,9 +106,7 @@ public class MyIndexHoppingHashMapTests {
     @ParameterizedTest
     @ArgumentsSource(Provider.class)
     public void testGetValueForeign(int tableSize, int index, double resizeFactor, double resizeThreshold) {
-        BinaryFct2IntImpl binaryFct2Int = new BinaryFct2IntImpl(tableSize, index);
-        MyIndexHoppingHashMap<Object, Object> instance = new MyIndexHoppingHashMap<>(tableSize, resizeFactor, resizeThreshold,
-            binaryFct2Int);
+        MyIndexHoppingHashMap<Object, Object> instance = getHashFunction(tableSize, index, resizeFactor, resizeThreshold);
 
         TutorAssertions.assertEquals(
             null, null,
@@ -121,7 +114,7 @@ public class MyIndexHoppingHashMapTests {
             "[[[getValue(K)]]] did not return [[[null]]], even though key and value are not in [[[theKeys]]] and [[[theValues]]]",
             () -> List.of(
                 new Pair<>("[[[binaryFct2Int]]]",
-                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(Object, int)]]] always returns " + index),
+                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(T, int)]]] always returns " + index),
                 new Pair<>("[[[this]]]", "[[[new MyIndexHoppingHashMap<>(%d, %f, %f, binaryFct2Int)]]] ".formatted(
                     tableSize, resizeFactor, resizeThreshold)
                     + "[[[theKeys]]], [[[theValues]]], [[[occupiedSinceLastRehash]]] and [[[occupiedCount]]] have been modified "
@@ -134,13 +127,11 @@ public class MyIndexHoppingHashMapTests {
     public void testPut(int tableSize, int index, double resizeFactor, double resizeThreshold) {
         Supplier<List<Pair<String, String>>> inputsListSupplier = () -> List.of(
             new Pair<>("[[[binaryFct2Int]]]",
-                "[[[BinaryFct2Int]]] reference implementation; [[[apply(Object, int)]]] always returns " + index),
+                "[[[BinaryFct2Int]]] reference implementation; [[[apply(T, int)]]] always returns " + index),
             new Pair<>("[[[this]]]", "[[[new MyIndexHoppingHashMap<>(%d, %f, %f, binaryFct2Int)]]]".formatted(
                 tableSize, resizeFactor, resizeThreshold))
         );
-        BinaryFct2IntImpl binaryFct2Int = new BinaryFct2IntImpl(tableSize, index);
-        MyIndexHoppingHashMap<Object, Object> instance = new MyIndexHoppingHashMap<>(tableSize, resizeFactor, resizeThreshold,
-            binaryFct2Int);
+        MyIndexHoppingHashMap<Object, Object> instance = getHashFunction(tableSize, index, resizeFactor, resizeThreshold);
         Object key = new Object();
         Object value = new Object();
 
@@ -172,15 +163,13 @@ public class MyIndexHoppingHashMapTests {
     public void testPutDuplicate(int tableSize, int index, double resizeFactor, double resizeThreshold) {
         Supplier<List<Pair<String, String>>> inputsListSupplier = () -> List.of(
             new Pair<>("[[[binaryFct2Int]]]",
-                "[[[BinaryFct2Int]]] reference implementation; [[[apply(Object, int)]]] always returns " + index),
+                "[[[BinaryFct2Int]]] reference implementation; [[[apply(T, int)]]] always returns " + index),
             new Pair<>("[[[this]]]", "[[[new MyIndexHoppingHashMap<>(%d, %f, %f, binaryFct2Int)]]] ".formatted(
                 tableSize, resizeFactor, resizeThreshold)
                 + "[[[theKeys]]], [[[theValues]]], [[[occupiedSinceLastRehash]]] and [[[occupiedCount]]] have been modified "
                 + "to simulate insertion operations prior to calling [[[put(K, V)]]]")
         );
-        BinaryFct2IntImpl binaryFct2Int = new BinaryFct2IntImpl(tableSize, index);
-        MyIndexHoppingHashMap<Object, Object> instance = new MyIndexHoppingHashMap<>(tableSize, resizeFactor, resizeThreshold,
-            binaryFct2Int);
+        MyIndexHoppingHashMap<Object, Object> instance = getHashFunction(tableSize, index, resizeFactor, resizeThreshold);
         Object key = new Object();
         Object value = new Object();
         Object newValue = new Object();
@@ -218,15 +207,13 @@ public class MyIndexHoppingHashMapTests {
     public void testRemove(int tableSize, int index, double resizeFactor, double resizeThreshold) {
         Supplier<List<Pair<String, String>>> inputsListSupplier = () -> List.of(
             new Pair<>("[[[binaryFct2Int]]]",
-                "[[[BinaryFct2Int]]] reference implementation; [[[apply(Object, int)]]] always returns " + index),
+                "[[[BinaryFct2Int]]] reference implementation; [[[apply(T, int)]]] always returns " + index),
             new Pair<>("[[[this]]]", "[[[new MyIndexHoppingHashMap<>(%d, %f, %f, binaryFct2Int)]]] ".formatted(
                 tableSize, resizeFactor, resizeThreshold)
                 + "[[[theKeys]]], [[[theValues]]], [[[occupiedSinceLastRehash]]] and [[[occupiedCount]]] have been modified "
                 + "to simulate insertion operations prior to calling [[[remove(K)]]]")
         );
-        BinaryFct2IntImpl binaryFct2Int = new BinaryFct2IntImpl(tableSize, index);
-        MyIndexHoppingHashMap<Object, Object> instance = new MyIndexHoppingHashMap<>(tableSize, resizeFactor, resizeThreshold,
-            binaryFct2Int);
+        MyIndexHoppingHashMap<Object, Object> instance = getHashFunction(tableSize, index, resizeFactor, resizeThreshold);
         Object key = new Object();
         Object value = new Object();
         ((Object[]) ReflectionUtils.getFieldValue("theKeys", instance))[index] = key;
@@ -263,13 +250,11 @@ public class MyIndexHoppingHashMapTests {
     public void testRemoveForeign(int tableSize, int index, double resizeFactor, double resizeThreshold) {
         Supplier<List<Pair<String, String>>> inputsListSupplier = () -> List.of(
             new Pair<>("[[[binaryFct2Int]]]",
-                "[[[BinaryFct2Int]]] reference implementation; [[[apply(Object, int)]]] always returns " + index),
+                "[[[BinaryFct2Int]]] reference implementation; [[[apply(T, int)]]] always returns " + index),
             new Pair<>("[[[this]]]", "[[[new MyIndexHoppingHashMap<>(%d, %f, %f, binaryFct2Int)]]]".formatted(
                 tableSize, resizeFactor, resizeThreshold))
         );
-        BinaryFct2IntImpl binaryFct2Int = new BinaryFct2IntImpl(tableSize, index);
-        MyIndexHoppingHashMap<Object, Object> instance = new MyIndexHoppingHashMap<>(tableSize, resizeFactor, resizeThreshold,
-            binaryFct2Int);
+        MyIndexHoppingHashMap<Object, Object> instance = getHashFunction(tableSize, index, resizeFactor, resizeThreshold);
         int newLength = (int) (tableSize * resizeFactor);
 
         try {
@@ -297,9 +282,7 @@ public class MyIndexHoppingHashMapTests {
     @ParameterizedTest
     @ArgumentsSource(Provider.class)
     public void testRehash(int tableSize, int index, double resizeFactor, double resizeThreshold) {
-        BinaryFct2IntImpl binaryFct2Int = new BinaryFct2IntImpl(tableSize, index);
-        MyIndexHoppingHashMap<Object, Object> instance = new MyIndexHoppingHashMap<>(tableSize, resizeFactor, resizeThreshold,
-            binaryFct2Int);
+        MyIndexHoppingHashMap<Object, Object> instance = getHashFunction(tableSize, index, resizeFactor, resizeThreshold);
         Object key = new Object();
 
         TutorAssertions.assertEquals(
@@ -308,7 +291,7 @@ public class MyIndexHoppingHashMapTests {
             "[[[remove(K)]]] did not return [[[null]]], even though key and value are not in [[[theKeys]]] and [[[theValues]]]",
             () -> List.of(
                 new Pair<>("[[[binaryFct2Int]]]",
-                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(Object, int)]]] always returns " + index),
+                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(T, int)]]] always returns " + index),
                 new Pair<>("[[[this]]]", "[[[new MyIndexHoppingHashMap<>(%d, %f, %f, binaryFct2Int)]]]".formatted(
                     tableSize, resizeFactor, resizeThreshold)
                     + "[[[theKeys]]], [[[theValues]]], [[[occupiedSinceLastRehash]]] and [[[occupiedCount]]] have been modified "
@@ -320,7 +303,6 @@ public class MyIndexHoppingHashMapTests {
     @ArgumentsSource(Provider.class)
     @ExtendWith(JagrExecutionCondition.class)
     public void testRehashInPut(int tableSize, int index, double resizeFactor, double resizeThreshold) {
-        BinaryFct2IntImpl binaryFct2Int = new BinaryFct2IntImpl(tableSize, index);
         Object[] theKeys = new Object[tableSize];
         Object[] theValues = new Object[tableSize];
         boolean[] occupiedSinceLastRehash = new boolean[tableSize];
@@ -331,8 +313,7 @@ public class MyIndexHoppingHashMapTests {
             occupiedSinceLastRehash[i] = true;
         }
 
-        MyIndexHoppingHashMap<Object, Object> instance = new MyIndexHoppingHashMap<>(tableSize, resizeFactor, resizeThreshold,
-            binaryFct2Int);
+        MyIndexHoppingHashMap<Object, Object> instance = getHashFunction(tableSize, index, resizeFactor, resizeThreshold);
         ReflectionUtils.setFieldValue("theKeys", instance, theKeys);
         ReflectionUtils.setFieldValue("theValues", instance, theValues);
         ReflectionUtils.setFieldValue("occupiedSinceLastRehash", instance, occupiedSinceLastRehash);
@@ -346,12 +327,17 @@ public class MyIndexHoppingHashMapTests {
             "[[[put(K, V)]]] did not call [[[rehash()]]], even though [[[occupiedCount]]] exceeds threshold",
             () -> List.of(
                 new Pair<>("[[[binaryFct2Int]]]",
-                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(Object, int)]]] always returns " + index),
+                    "[[[BinaryFct2Int]]] reference implementation; [[[apply(T, int)]]] always returns " + index),
                 new Pair<>("[[[this]]]", "[[[new MyIndexHoppingHashMap<>(%d, %f, %f, binaryFct2Int)]]]".formatted(
                     tableSize, resizeFactor, resizeThreshold)
                     + "[[[theKeys]]], [[[theValues]]], [[[occupiedSinceLastRehash]]] and [[[occupiedCount]]] have been modified "
                     + "to simulate insertion operations prior to calling [[[put(K, V)]]]")
             ));
+    }
+
+    private static MyIndexHoppingHashMap<Object, Object> getHashFunction(int tableSize, int index, double resizeFactor,
+                                                                         double resizeThreshold) {
+        return new MyIndexHoppingHashMap<>(tableSize, resizeFactor, resizeThreshold, new BinaryFct2IntImpl(tableSize, index));
     }
 
     private static class Provider implements ArgumentsProvider {

@@ -2,7 +2,7 @@ package h06.h1;
 
 import h06.DoubleHashing;
 import h06.Hash2IndexFct;
-import h06.mocks.Mock;
+import h06.utils.ReflectionUtils;
 import h06.utils.TutorAssertions;
 import kotlin.Pair;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -10,8 +10,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
+import org.mockito.Mockito;
+import org.mockito.stubbing.Answer;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -79,8 +83,27 @@ public class DoubleHashingTests {
         public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
             Random random = new Random(SEED);
 
-            return Stream.generate(() -> new Object[] {Mock.getMock(Hash2IndexFct.class, Mock.HASH_2_INDEX_FCT,
-                    random.nextInt(10) + 1, 0), random.nextInt(10) + 1})
+            return Stream.generate(() -> {
+                    int tableSize = random.nextInt(10) + 1;
+                    int offset = 0;
+                    Answer<?> answer = invocation -> {
+                        Method calledMethod = invocation.getMethod();
+                        if (calledMethod.getName().equals("apply")
+                            && calledMethod.getParameterCount() == 1
+                            && calledMethod.getParameterTypes()[0].equals(Object.class)) {
+                            return Math.floorMod(Math.abs((long) invocation.getArgument(0).hashCode()) + offset, tableSize);
+                        } else {
+                            return invocation.callRealMethod();
+                        }
+                    };
+                    Hash2IndexFct<Object> instance = Mockito.mock(Hash2IndexFct.class, answer);
+                    Field tableSizeField = ReflectionUtils.getField(Hash2IndexFct.class, "tableSize");
+                    ReflectionUtils.setFieldValue(tableSizeField, instance, tableSize);
+                    Field offsetField = ReflectionUtils.getField(Hash2IndexFct.class, "offset");
+                    ReflectionUtils.setFieldValue(offsetField, instance, offset);
+
+                    return new Object[] {instance, random.nextInt(10) + 1};
+                })
                 .limit(STREAM_SIZE)
                 .map(Arguments::of);
         }

@@ -14,8 +14,6 @@
         "h06/h4/MyListsHashMapTests.java",
         "h06/h5/MyDateTests.java",
         "h06/h6/RuntimeTestTests.java",
-        "h06/mocks/Mock.java",
-        "h06/transformers/Hash2IndexFctTransformer.java",
         "h06/transformers/MyDateTransformer.java",
         "h06/transformers/MyIndexHoppingHashMapTransformer.java",
         "h06/utils/ReflectionUtils.java",

@@ -13,21 +13,15 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.sourcegrade.jagr.api.testing.extension.JagrExecutionCondition;
 
 import java.lang.reflect.Field;
-import java.text.DateFormat;
-import java.time.Instant;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
-import static h06.Config.SEED;
-import static h06.Config.STREAM_SIZE;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @TestForSubmission("h06")
@@ -132,18 +126,6 @@ public class RuntimeTestTests {
             myMap.removeInvocationCounter, null,
             "[[[remove(K)]]] was not called %d times by [[[RuntimeTest.test(testSet)]]]".formatted(testData.length),
             inputsSupplier);
-    }
-
-    private static class Provider implements ArgumentsProvider {
-
-        @Override
-        public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
-            Random random = new Random(SEED);
-
-            return Stream.generate(() -> null)
-                .limit(STREAM_SIZE)
-                .map(Arguments::of);
-        }
     }
 
     private static class MyMapImpl implements MyMap<MyDate, MyDate> {
