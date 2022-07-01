@@ -7,13 +7,41 @@
     {
       "name": "grader",
       "files": [
+        "h06/h1/DoubleHashingTests.java",
+        "h06/h1/Hash2IndexFctTests.java",
+        "h06/h1/LinearProbingTests.java",
+        "h06/h3/MyIndexHoppingHashMapTests.java",
+        "h06/h4/MyListsHashMapTests.java",
+        "h06/h5/MyDateTests.java",
+        "h06/h6/RuntimeTestTests.java",
+        "h06/transformers/MyDateTransformer.java",
+        "h06/transformers/MyIndexHoppingHashMapTransformer.java",
+        "h06/utils/ReflectionUtils.java",
+        "h06/utils/TutorAssertions.java",
+        "h06/Config.java",
         "h06/H06_RubricProvider.java"
       ]
     },
     {
       "name": "solution",
       "files": [
-        "h06/Main.java"
+        "h06/BinaryFct2Int.java",
+        "h06/DoubleHashing.java",
+        "h06/Fct2Int.java",
+        "h06/Hash2IndexFct.java",
+        "h06/KeyValuePair.java",
+        "h06/LinearProbing.java",
+        "h06/Main.java",
+        "h06/ModuloUtil.java",
+        "h06/MyDate.java",
+        "h06/MyIndexHoppingHashMap.java",
+        "h06/MyListsHashMap.java",
+        "h06/MyMap.java",
+        "h06/RuntimeTest.java",
+        "h06/TestSet.java",
+
+        "h06/ExampleJUnitTest.java",
+        "h06/PublicTests.java"
       ]
     }
   ]
