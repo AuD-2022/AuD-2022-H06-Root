@@ -5,6 +5,7 @@ import org.sourcegrade.jagr.api.testing.ClassTransformer;
 
 public class MyDateTransformer implements ClassTransformer {
 
+    public static boolean CONSTRUCTOR_SURROGATE_ACTIVE = false;
     public static boolean HASH_CODE_SURROGATE_ACTIVE = true;
 
     @Override
@@ -21,6 +22,11 @@ public class MyDateTransformer implements ClassTransformer {
         }
     }
 
+    @Override
+    public int getWriterFlags() {
+        return ClassWriter.COMPUTE_MAXS;
+    }
+
     private static class ClassTransformer extends ClassVisitor {
 
         private ClassTransformer(ClassWriter classWriter) {
@@ -29,7 +35,32 @@ public class MyDateTransformer implements ClassTransformer {
 
         @Override
         public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-            if (name.equals("hashCode") && descriptor.equals("()I")) {
+            if (name.equals("<init>") && descriptor.equals("(Ljava/util/Calendar;Z)V")) {
+                return new MethodVisitor(Opcodes.ASM9, super.visitMethod(access, name, descriptor, signature, exceptions)) {
+                    final Label label = new Label();
+
+                    @Override
+                    public void visitCode() {
+                        super.visitFieldInsn(Opcodes.GETSTATIC,
+                            "h06/transformers/MyDateTransformer",
+                            "CONSTRUCTOR_SURROGATE_ACTIVE",
+                            "Z");
+                        super.visitJumpInsn(Opcodes.IFNE, label);
+                        super.visitCode();
+                    }
+
+                    @Override
+                    public void visitEnd() {
+                        super.visitLabel(label);
+                        super.visitFrame(Opcodes.F_FULL,
+                            3, new Object[] {Opcodes.UNINITIALIZED_THIS, "java/util/Calendar", Opcodes.INTEGER},
+                            0, new Object[0]);
+                        injectConstructorCode(this);
+                        super.visitInsn(Opcodes.RETURN);
+                        super.visitEnd();
+                    }
+                };
+            } else if (name.equals("hashCode") && descriptor.equals("()I")) {
                 return new MethodVisitor(Opcodes.ASM9, super.visitMethod(access, name, descriptor, signature, exceptions)) {
                     final Label label = new Label();
 
@@ -78,6 +109,14 @@ public class MyDateTransformer implements ClassTransformer {
                 null,
                 null);
             injectConstructorCode(mv);
+            mv.visitVarInsn(Opcodes.ALOAD, 0);
+            mv.visitVarInsn(Opcodes.ILOAD, 3);
+            mv.visitFieldInsn(Opcodes.PUTFIELD,
+                "h06/MyDate",
+                "hashCodeReturnValue",
+                "I");
+            mv.visitInsn(Opcodes.RETURN);
+            mv.visitMaxs(3, 4);
 
             super.visitEnd();
         }
@@ -231,17 +270,6 @@ public class MyDateTransformer implements ClassTransformer {
                 "h06/MyDate",
                 "randomBoolean",
                 "Z");
-
-            // assign hashCodeReturnValue
-            mv.visitVarInsn(Opcodes.ALOAD, 0);
-            mv.visitVarInsn(Opcodes.ILOAD, 3);
-            mv.visitFieldInsn(Opcodes.PUTFIELD,
-                "h06/MyDate",
-                "hashCodeReturnValue",
-                "I");
-
-            mv.visitInsn(Opcodes.RETURN);
-            mv.visitMaxs(3, 4);
         }
     }
 }

@@ -6,6 +6,7 @@ import h06.h1.LinearProbingTests;
 import h06.h3.MyIndexHoppingHashMapTests;
 import h06.h4.MyListsHashMapTests;
 import h06.h5.MyDateTests;
+import h06.h6.RuntimeTestTests;
 import h06.transformers.MyDateTransformer;
 import h06.transformers.MyIndexHoppingHashMapTransformer;
 import org.sourcegrade.jagr.api.rubric.*;
@@ -136,22 +137,22 @@ public class H06_RubricProvider implements RubricProvider {
                         .shortDescription("Zufallszahlen werden in [[[generateTestdata()]]] wie beschrieben generiert. "
                             + "(kein Filtern, sondern Modulo-Bildung)")
                         .build(),
-                    Criterion.builder()
-                        .shortDescription("Die Dimensionen des von [[[generateTestdata()]]] zurückgegebenen Arrays sind korrekt.")
-                        .build(),
-                    Criterion.builder()
-                        .shortDescription("Die Elemente in dem von [[[generateTestdata()]]] zurückgegebenen Array wurden korrekt "
-                            + "initialisiert.")
-                        .build(),
+                    makeCriterion("Die Dimensionen des von [[[generateTestdata()]]] zurückgegebenen Arrays sind korrekt.",
+                        () -> RuntimeTestTests.class
+                            .getDeclaredMethod("testGenerateTestdataDimensions")),
+                    makeCriterion("Die Elemente in dem von [[[generateTestdata()]]] zurückgegebenen Array wurden korrekt "
+                            + "initialisiert.",
+                        () -> RuntimeTestTests.class
+                            .getDeclaredMethod("testGenerateTestdataElementInit")),
                     Criterion.builder()
                         .shortDescription("Methode [[[createTestSet(int, int, int, int, MyDate[][])]]] funktioniert wie "
                             + "beschrieben.")
-                        .build(),
-                    Criterion.builder()
-                        .shortDescription("Methode [[[test(TestSet)]]] funktioniert wie beschrieben.")
                         .minPoints(0)
                         .maxPoints(2)
-                        .build()
+                        .build(),
+                    makeCriterion("Methode [[[test(TestSet)]]] funktioniert wie beschrieben.",
+                        () -> RuntimeTestTests.class
+                            .getDeclaredMethod("testTest"))
                 )
             )
             .build();
