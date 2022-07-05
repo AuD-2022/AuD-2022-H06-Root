@@ -144,12 +144,14 @@ public class H06_RubricProvider implements RubricProvider {
                             + "initialisiert.",
                         () -> RuntimeTestTests.class
                             .getDeclaredMethod("testGenerateTestdataElementInit")),
-                    Criterion.builder()
-                        .shortDescription("Methode [[[createTestSet(int, int, int, int, MyDate[][])]]] funktioniert wie "
-                            + "beschrieben.")
-                        .minPoints(0)
-                        .maxPoints(2)
-                        .build(),
+                    makeCriterion("Methode [[[createTestSet(int, int, int, int, MyDate[][])]]] funktioniert funktioniert mit "
+                            + "[[[MyIndexHoppingHashMap]]] (j = 1) wie beschrieben.",
+                        () -> RuntimeTestTests.class
+                            .getDeclaredMethod("testCreateTestSetMyIndexHoppingHashMap")),
+                    makeCriterion("Methode [[[createTestSet(int, int, int, int, MyDate[][])]]] funktioniert funktioniert mit "
+                            + "[[[MyListsHashMap]]] (j = 2) wie beschrieben.",
+                        () -> RuntimeTestTests.class
+                            .getDeclaredMethod("testCreateTestSetMyListsHashMap")),
                     makeCriterion("Methode [[[test(TestSet)]]] funktioniert wie beschrieben.",
                         () -> RuntimeTestTests.class
                             .getDeclaredMethod("testTest"))

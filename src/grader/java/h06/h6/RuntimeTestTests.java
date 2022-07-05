@@ -1,9 +1,6 @@
 package h06.h6;
 
-import h06.MyDate;
-import h06.MyMap;
-import h06.RuntimeTest;
-import h06.TestSet;
+import h06.*;
 import h06.transformers.MyDateTransformer;
 import h06.utils.ReflectionUtils;
 import h06.utils.TutorAssertions;
@@ -60,6 +57,160 @@ public class RuntimeTestTests {
             TEST_SET_SIZE, null,
             MY_DATES_TEST_SET[1].length, null,
             "The inner array returned by [[[generateTestdata()]]] did not have the expected size at index 1", List::of);
+    }
+
+    @Test
+    @ExtendWith(JagrExecutionCondition.class)
+    public void testCreateTestSetMyIndexHoppingHashMap() {
+        int j = 1;
+
+        for (int i = 1; i <= 2; i++) {
+            for (int k = 1; k <= 2; k++) {
+                for (int l = 1; l <= 2; l++) {
+                    MyDate[][] testData = getTestData();
+                    TestSet<MyDate> testSet = RuntimeTest.createTestSet(i, j, k, l, testData);
+
+                    TutorAssertions.assertEquals(
+                        i == 1, "[[[MyDate]]] array with [[[randomBoolean = %b]]]".formatted(i == 1),
+                        testSet.getTestData()[0].getBool(), "[[[MyDate]]] array with [[[randomBoolean = %b]]]".formatted(i != 1),
+                        "[[[createTestSet(int, int, int, int, MyDate[][])]]] did not pass the correct testData to the constructor "
+                            + "of [[[TestSet]]]",
+                        getCreateTestSetInputs(i, j, k, l));
+
+                    MyMap<MyDate, MyDate> myMap = testSet.getHashTable();
+
+                    TutorAssertions.assertEquals(
+                        true, null,
+                        myMap instanceof MyIndexHoppingHashMap, null,
+                        "[[[createTestSet(int, int, int, int, MyDate[][])]]] did not use [[[MyIndexHoppingHashMap]]] as hash table",
+                        getCreateTestSetInputs(i, j, k, l));
+                    TutorAssertions.assertEquals(
+                        (int) Math.pow(2, l == 1 ? 12 : 6), null,
+                        ((Object[]) ReflectionUtils.getFieldValue("theKeys", myMap)).length, null,
+                        "The hash map's size did not equal the expected value",
+                        getCreateTestSetInputs(i, j, k, l));
+                    TutorAssertions.assertEquals(
+                        2.0, null,
+                        ReflectionUtils.getFieldValue("resizeFactor", (MyIndexHoppingHashMap<MyDate, MyDate>) myMap), null,
+                        "The [[[MyHoppingIndexHashMap]]] object was not initialized with a resize factor of 2.0",
+                        getCreateTestSetInputs(i, j, k, l));
+                    TutorAssertions.assertEquals(
+                        0.75, null,
+                        ReflectionUtils.getFieldValue("resizeThreshold", (MyIndexHoppingHashMap<MyDate, MyDate>) myMap), null,
+                        "The [[[MyHoppingIndexHashMap]]] object was not initialized with a resize threshold of 0.75",
+                        getCreateTestSetInputs(i, j, k, l));
+
+                    BinaryFct2Int<MyDate> binaryFct2Int = ReflectionUtils.getFieldValue("hashFunction", myMap);
+
+                    if (k == 1) {
+                        TutorAssertions.assertEquals(
+                            true, null,
+                            binaryFct2Int instanceof LinearProbing, null,
+                            "The test set's [[[MyHoppingIndexHashMap]]] object was not initialized with a "
+                                + "[[[LinearProbing]]] object",
+                            getCreateTestSetInputs(i, j, k, l));
+
+                        Fct2Int<MyDate> internalHashFunction = ReflectionUtils.getFieldValue("hashFct", binaryFct2Int);
+
+                        TutorAssertions.assertEquals(
+                            true, null,
+                            internalHashFunction instanceof Hash2IndexFct, null,
+                            "The internal hash function of the [[[LinearProbing]]] object that was passed to the constructor "
+                                + "of [[[MyHoppingIndexHashMap]]] as fourth argument is not an instance of [[[Hash2IndexFct]]]",
+                            getCreateTestSetInputs(i, j, k, l));
+                        TutorAssertions.assertEquals(
+                            0, null,
+                            ReflectionUtils.getFieldValue("offset", internalHashFunction), null,
+                            "The internal hash function of the [[[LinearProbing]]] object that was passed to the constructor "
+                                + "of [[[MyHoppingIndexHashMap]]] as fourth argument does not have an offset of 0",
+                            getCreateTestSetInputs(i, j, k, l));
+                    } else {
+                        TutorAssertions.assertEquals(
+                            true, null,
+                            binaryFct2Int instanceof DoubleHashing, null,
+                            "The test set's [[[MyHoppingIndexHashMap]]] object was not initialized with a "
+                                + "[[[DoubleHashing]]] object",
+                            getCreateTestSetInputs(i, j, k, l));
+
+                        Fct2Int<MyDate> internalHashFunction1 = ReflectionUtils.getFieldValue("fct1", binaryFct2Int);
+                        Fct2Int<MyDate> internalHashFunction2 = ReflectionUtils.getFieldValue("fct2", binaryFct2Int);
+
+                        TutorAssertions.assertEquals(
+                            true, null,
+                            internalHashFunction1 instanceof Hash2IndexFct, null,
+                            "The first internal hash function of the [[[LinearProbing]]] object that was passed to the "
+                                + "constructor of [[[MyHoppingIndexHashMap]]] as fourth argument is not an instance of [[[Hash2IndexFct]]]",
+                            getCreateTestSetInputs(i, j, k, l));
+                        TutorAssertions.assertEquals(
+                            true, null,
+                            internalHashFunction1 instanceof Hash2IndexFct, null,
+                            "The second internal hash function of the [[[LinearProbing]]] object that was passed to the "
+                                + "constructor of [[[MyHoppingIndexHashMap]]] as fourth argument is not an instance of [[[Hash2IndexFct]]]",
+                            getCreateTestSetInputs(i, j, k, l));
+                        TutorAssertions.assertEquals(
+                            0, null,
+                            ReflectionUtils.getFieldValue("offset", internalHashFunction1), null,
+                            "The first internal hash function of the [[[LinearProbing]]] object that was passed to the " +
+                                "constructor of [[[MyHoppingIndexHashMap]]] as fourth argument does not have an offset of 0",
+                            getCreateTestSetInputs(i, j, k, l));
+                        TutorAssertions.assertEquals(
+                            42, null,
+                            ReflectionUtils.getFieldValue("offset", internalHashFunction2), null,
+                            "The second internal hash function of the [[[LinearProbing]]] object that was passed to the "
+                                + "constructor of [[[MyHoppingIndexHashMap]]] as fourth argument does not have an offset of 42",
+                            getCreateTestSetInputs(i, j, k, l));
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    @ExtendWith(JagrExecutionCondition.class)
+    public void testCreateTestSetMyListsHashMap() {
+        int j = 2;
+
+        for (int i = 1; i <= 2; i++) {
+            for (int k = 1; k <= 2; k++) {
+                for (int l = 1; l <= 2; l++) {
+                    MyDate[][] testData = getTestData();
+                    TestSet<MyDate> testSet = RuntimeTest.createTestSet(i, j, k, l, testData);
+
+                    TutorAssertions.assertEquals(
+                        i == 1, "[[[MyDate]]] array with [[[randomBoolean = %b]]]".formatted(i == 1),
+                        testSet.getTestData()[0].getBool(), "[[[MyDate]]] array with [[[randomBoolean = %b]]]".formatted(i != 1),
+                        "[[[createTestSet(int, int, int, int, MyDate[][])]]] did not pass the correct testData to the constructor "
+                            + "of [[[TestSet]]]",
+                        getCreateTestSetInputs(i, j, k, l));
+
+                    MyMap<MyDate, MyDate> myMap = testSet.getHashTable();
+
+                    TutorAssertions.assertEquals(
+                        true, null,
+                        myMap instanceof MyListsHashMap, null,
+                        "[[[createTestSet(int, int, int, int, MyDate[][])]]] did not use [[[MyListsHashMap]]] as hash table",
+                        getCreateTestSetInputs(i, j, k, l));
+
+                    Fct2Int<MyDate> fct2Int = ReflectionUtils.getFieldValue("hashFunction", myMap);
+
+                    TutorAssertions.assertEquals(
+                        true, null,
+                        fct2Int instanceof Hash2IndexFct, null,
+                        "The hash function of the [[[MyListsHashMap]]] object is not an instance of [[[Hash2IndexFct]]]",
+                        getCreateTestSetInputs(i, j, k, l));
+                    TutorAssertions.assertEquals(
+                        0, null,
+                        ReflectionUtils.getFieldValue("offset", fct2Int), null,
+                        "The offset of the [[[MyListsHashMap]]] object's hash function is not 0",
+                        getCreateTestSetInputs(i, j, k, l));
+                    TutorAssertions.assertEquals(
+                        l == 1 ? 3 * TEST_SET_SIZE : TEST_SET_SIZE / 10, null,
+                        ((Object[]) ReflectionUtils.getFieldValue("table", myMap)).length, null,
+                        "The hash map's size did not equal the expected value",
+                        getCreateTestSetInputs(i, j, k, l));
+                }
+            }
+        }
     }
 
     @Test
@@ -126,6 +277,27 @@ public class RuntimeTestTests {
             myMap.removeInvocationCounter, null,
             "[[[remove(K)]]] was not called %d times by [[[RuntimeTest.test(testSet)]]]".formatted(testData.length),
             inputsSupplier);
+    }
+
+    private static Supplier<List<Pair<String, String>>> getCreateTestSetInputs(int i, int j, int k, int l) {
+        return () -> List.of(
+            new Pair<>("[[[i]]]", String.valueOf(i)),
+            new Pair<>("[[[j]]]", String.valueOf(j)),
+            new Pair<>("[[[k]]]", String.valueOf(k)),
+            new Pair<>("[[[l]]]", String.valueOf(l)),
+            new Pair<>("[[[testData]]]", "Two-dimensional [[[MyDate]]] array, each object initialized in the way the exercise "
+                + "sheet describes")
+        );
+    }
+
+    private static MyDate[][] getTestData() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(0);
+        MyDate[][] testData = new MyDate[][] {new MyDate[1000], new MyDate[1000]};
+        for (int i = 0; i < testData.length; i++) {
+            Arrays.fill(testData[i], new MyDate(calendar, i == 0));
+        }
+        return testData;
     }
 
     private static class MyMapImpl implements MyMap<MyDate, MyDate> {
