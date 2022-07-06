@@ -16,6 +16,7 @@
         "h06/h6/RuntimeTestTests.java",
         "h06/transformers/MyDateTransformer.java",
         "h06/transformers/MyIndexHoppingHashMapTransformer.java",
+        "h06/transformers/RuntimeTestTransformer.java",
         "h06/utils/ReflectionUtils.java",
         "h06/utils/TutorAssertions.java",
         "h06/Config.java",

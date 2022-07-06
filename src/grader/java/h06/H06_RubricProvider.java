@@ -9,6 +9,7 @@ import h06.h5.MyDateTests;
 import h06.h6.RuntimeTestTests;
 import h06.transformers.MyDateTransformer;
 import h06.transformers.MyIndexHoppingHashMapTransformer;
+import h06.transformers.RuntimeTestTransformer;
 import org.sourcegrade.jagr.api.rubric.*;
 import org.sourcegrade.jagr.api.testing.RubricConfiguration;
 
@@ -133,10 +134,10 @@ public class H06_RubricProvider implements RubricProvider {
                             .getDeclaredMethod("testEquals"))
                 ),
                 makeCriterionFromChildCriteria("H6 | Tests ([[[RuntimeTests]]])",
-                    Criterion.builder()
-                        .shortDescription("Zufallszahlen werden in [[[generateTestdata()]]] wie beschrieben generiert. "
-                            + "(kein Filtern, sondern Modulo-Bildung)")
-                        .build(),
+                    makeCriterion("Zufallszahlen werden in [[[generateTestdata()]]] wie beschrieben generiert. "
+                            + "(kein Filtern, sondern Modulo-Bildung)",
+                        () -> RuntimeTestTests.class
+                            .getDeclaredMethod("testGenerateTestdataRandomNumberGeneration")),
                     makeCriterion("Die Dimensionen des von [[[generateTestdata()]]] zurückgegebenen Arrays sind korrekt.",
                         () -> RuntimeTestTests.class
                             .getDeclaredMethod("testGenerateTestdataDimensions")),
@@ -164,6 +165,7 @@ public class H06_RubricProvider implements RubricProvider {
     public void configure(RubricConfiguration configuration) {
         configuration.addTransformer(new MyIndexHoppingHashMapTransformer());
         configuration.addTransformer(new MyDateTransformer());
+        configuration.addTransformer(new RuntimeTestTransformer());
     }
 
     @SafeVarargs

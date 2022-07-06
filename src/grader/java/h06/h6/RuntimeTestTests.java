@@ -2,6 +2,7 @@ package h06.h6;
 
 import h06.*;
 import h06.transformers.MyDateTransformer;
+import h06.transformers.RuntimeTestTransformer;
 import h06.utils.ReflectionUtils;
 import h06.utils.TutorAssertions;
 import kotlin.Pair;
@@ -40,6 +41,16 @@ public class RuntimeTestTests {
     public static void resetFlags() {
         MyDateTransformer.CONSTRUCTOR_SURROGATE_ACTIVE = false;
         MyDateTransformer.HASH_CODE_SURROGATE_ACTIVE = false;
+    }
+
+    @Test
+    @ExtendWith(JagrExecutionCondition.class)
+    public void testGenerateTestdataRandomNumberGeneration() {
+        TutorAssertions.assertEquals(
+            true, null,
+            RuntimeTestTransformer.RANDOM_NUMBER_FUNCTION_CALLED_PLAIN
+                || RuntimeTestTransformer.RANDOM_NUMBER_FUNCTION_CALLED_MOD && RuntimeTestTransformer.MOD_FUNCTION_USED, null,
+            "Random numbers have not been created / limited in a way the exercise sheet describes", List::of);
     }
 
     @Test
